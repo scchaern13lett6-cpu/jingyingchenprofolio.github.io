@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About · Jingying Chen</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=Manrope:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Manrope:wght@400;600&family=Caveat:wght@600&family=Space+Mono&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Manrope:wght@400;600&family=Caveat:wght@600&family=Space+Mono&display=swap"></noscript>
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ABOUT PAGE */
@@ -595,6 +594,7 @@
     <li><a href="about.html" class="active">About</a></li>
   </ul>
 </nav>
+<main>
 
 <!-- ABOUT HERO -->
 <section class="about-hero">
@@ -829,12 +829,14 @@
   </div>
 </section>
 
+</main>
 <footer>
   <span>© 2026 Jingying Chen · Made with care</span>
   <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
 </footer>
 
 <script>
+if (!('ontouchstart' in window)) {
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -848,6 +850,7 @@ document.querySelectorAll('a, button').forEach(el => {
 const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
 reveals.forEach(el => obs.observe(el));
+}
 </script>
 </body>
 </html>
