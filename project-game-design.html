@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Under the University · Jingying Chen</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=Manrope:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&family=Special+Elite&family=Space+Mono&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Manrope:wght@400;600&family=Caveat:wght@600&family=Special+Elite&family=Space+Mono&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Manrope:wght@400;600&family=Caveat:wght@600&family=Special+Elite&family=Space+Mono&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap"></noscript>
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ════════════════════════════════════════════════════════
@@ -1159,53 +1158,10 @@ footer a:hover { color: var(--blood) !important; }
 }
 @media (max-width: 700px) {
   .char-grid-irregular { grid-template-columns: 1fr; }
-  .back-bar { left: 1rem; top: 4.8rem; padding: .4rem .9rem; font-size: .65rem; }
+  .back-bar { left: 1rem; padding: .4rem .9rem; font-size: .65rem; }
   .hero-title-1 { font-size: 2.4rem; }
   .hero-title-2 { font-size: 3rem; }
   .overview-body p:first-child::first-letter { font-size: 3rem; }
-
-  /* ── HERO: stacked flow layout for mobile ── */
-  .collage-hero { padding: 8rem 1.2rem 3rem; min-height: auto; }
-  .hero-canvas {
-    height: auto !important; min-height: auto !important;
-    display: flex; flex-direction: column; align-items: center;
-    gap: 1.8rem;
-  }
-  .hero-cover {
-    position: relative !important;
-    top: auto !important; left: auto !important;
-    width: 88% !important; max-width: 340px !important;
-    height: 260px;
-    margin: 0 !important;
-    transform: rotate(-2deg);
-  }
-  .hero-cover::before, .hero-cover::after { display: none; }
-  .hero-title-block {
-    position: relative !important;
-    top: auto !important; right: auto !important;
-    width: 100% !important;
-    margin-top: 0 !important;
-    padding: 0 !important;
-    text-align: left;
-  }
-  .hero-tagline { font-size: 1.05rem; max-width: 100%; padding-left: 1rem; margin-top: 1.2rem; }
-  .hero-stickynote {
-    position: relative !important;
-    bottom: auto !important; left: auto !important;
-    width: 90% !important; max-width: 300px;
-    margin: 0 auto !important;
-    transform: rotate(2deg);
-  }
-  .hero-cta {
-    position: relative !important;
-    bottom: auto !important; right: auto !important;
-    margin: 0 auto !important;
-    transform: rotate(-2deg);
-    font-size: .75rem; padding: .9rem 1.6rem;
-  }
-  /* Hide decorative collage overlays that don't translate to stacked layout */
-  .evidence-stamp, .rules-banner, .meta-tag,
-  .push-pin, .red-line { display: none !important; }
 }
 </style>
 </head>
@@ -1225,6 +1181,7 @@ footer a:hover { color: var(--blood) !important; }
 </nav>
 
 <a href="projects.html" class="back-bar">All Projects</a>
+<main>
 
 <!-- ═══ COLLAGE HERO ═══ -->
 <section class="collage-hero">
@@ -1547,12 +1504,14 @@ footer a:hover { color: var(--blood) !important; }
   </a>
 </section>
 
+</main>
 <footer>
   <span>© 2026 Jingying Chen · Made with care</span>
   <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
 </footer>
 
 <script>
+if (!('ontouchstart' in window)) {
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
@@ -1566,6 +1525,7 @@ document.querySelectorAll('a, button').forEach(el => {
 const reveals = document.querySelectorAll('.reveal');
 const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
 reveals.forEach(el => obs.observe(el));
+}
 </script>
 </body>
 </html>
