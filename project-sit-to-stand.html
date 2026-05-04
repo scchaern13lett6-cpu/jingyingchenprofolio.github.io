@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sit-to-Stand Podium · Jingying Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ════════════════════════════════════════════
+   SIT-TO-STAND — INDUSTRIAL BLUEPRINT STYLE
+   ════════════════════════════════════════════ */
+
+:root {
+  --steel-blue: #2C4A5E;
+  --steel-blue-deep: #1A2D3D;
+  --steel-blue-mid: #3D6480;
+  --industrial-gray: #4A4D52;
+  --paper-cream: #F2EBDA;
+  --paper-warm: #E8DFC8;
+  --orange: #FF6B35;
+  --orange-soft: #FFB088;
+  --ink-deep: #1A1410;
+  --ink-soft: #3D2E26;
+  --muted: #6B5D4F;
+  --line: rgba(44,74,94,0.18);
+  --grid-line: rgba(44,74,94,0.08);
+}
+
+body {
+  background: var(--paper-cream);
+  color: var(--ink-deep);
+  font-family: 'Crimson Pro', Georgia, serif;
+}
+
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  z-index: 9999; pointer-events: none;
+}
+
+nav {
+  background: rgba(242,235,218,0.92) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+.nav-logo { color: var(--steel-blue) !important; }
+.nav-links a { color: var(--ink-soft) !important; }
+.nav-links a.active { color: var(--orange) !important; }
+.nav-links a:hover { color: var(--orange) !important; }
+.nav-links a::after { background: var(--orange) !important; }
+
+.cursor { background: var(--orange) !important; }
+.cursor-ring { border-color: var(--orange) !important; }
+
+.back-bar {
+  position: fixed; top: 5rem; left: 4rem; z-index: 400;
+  background: var(--paper-cream);
+  border: 1.5px solid var(--steel-blue);
+  border-radius: 0;
+  padding: .5rem 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--steel-blue);
+  box-shadow: 3px 3px 0 var(--orange);
+  transition: transform .25s, box-shadow .25s;
+  font-weight: 600;
+}
+.back-bar:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--orange); }
+.back-bar::before { content: '← '; }
+
+/* ════ HERO - BLUEPRINT WITH TITLE BLOCK ════ */
+.bp-hero {
+  position: relative;
+  background: var(--paper-cream);
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  padding: 7rem 5rem 5rem;
+  border-bottom: 6px double var(--steel-blue);
+}
+
+.bp-meta-strip {
+  max-width: 1280px; margin: 0 auto 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .8rem 1.2rem;
+  background: var(--steel-blue);
+  color: var(--paper-cream);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.bp-meta-strip .l { display: flex; gap: 1.4rem; align-items: center; }
+.bp-meta-strip .file-no {
+  background: var(--paper-cream);
+  color: var(--steel-blue);
+  padding: .25rem .7rem;
+  font-weight: 700;
+}
+
+.bp-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* LEFT: product image with dimension annotations */
+.product-image-wrap {
+  position: relative;
+  background: var(--paper-warm);
+  padding: 2rem 2rem 2.5rem;
+  border: 1.5px solid var(--steel-blue);
+}
+
+.product-image-wrap img {
+  width: 100%;
+  display: block;
+  filter: contrast(0.95) saturate(0.85);
+}
+
+/* dimension lines around the image */
+.dim-line {
+  position: absolute;
+  background: var(--orange);
+  pointer-events: none;
+  opacity: 0.85;
+}
+.dim-line.top {
+  top: -25px; left: 30px; right: 30px;
+  height: 1.5px;
+}
+.dim-line.top::before {
+  content: ''; position: absolute;
+  left: -1px; top: -4px;
+  width: 1px; height: 10px;
+  background: var(--orange);
+}
+.dim-line.top::after {
+  content: ''; position: absolute;
+  right: -1px; top: -4px;
+  width: 1px; height: 10px;
+  background: var(--orange);
+}
+.dim-label {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .15em;
+  color: var(--orange);
+  font-weight: 700;
+  background: var(--paper-cream);
+  padding: 1px 6px;
+  text-transform: uppercase;
+}
+.dim-label.top {
+  top: -34px; left: 50%;
+  transform: translateX(-50%);
+}
+.dim-line.left {
+  left: -25px; top: 30px; bottom: 30px;
+  width: 1.5px;
+}
+.dim-line.left::before {
+  content: ''; position: absolute;
+  top: -1px; left: -4px;
+  width: 10px; height: 1px;
+  background: var(--orange);
+}
+.dim-line.left::after {
+  content: ''; position: absolute;
+  bottom: -1px; left: -4px;
+  width: 10px; height: 1px;
+  background: var(--orange);
+}
+.dim-label.left {
+  left: -45px; top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center;
+}
+
+.product-caption {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+.product-caption strong { color: var(--steel-blue); font-weight: 700; }
+
+/* detail callout circle */
+.detail-circle {
+  position: absolute;
+  top: 25%; right: -30px;
+  width: 60px; height: 60px;
+  border: 1.5px solid var(--orange);
+  border-radius: 50%;
+  background: rgba(255,107,53,0.05);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: .15em;
+  color: var(--orange);
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  line-height: 1.2;
+}
+.detail-circle::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: -50px;
+  width: 50px; height: 1.5px;
+  background: var(--orange);
+}
+
+/* RIGHT: project info */
+.bp-prefix {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+.bp-prefix::before { content: '▌ '; }
+
+.bp-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--steel-blue-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.bp-title em { font-style: italic; color: var(--orange); }
+
+.bp-subtitle {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 2rem;
+  padding-left: 1.4rem;
+  border-left: 3px solid var(--orange);
+}
+
+/* engineering title block */
+.title-block {
+  border: 2px solid var(--steel-blue);
+  background: var(--paper-warm);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 1.5rem;
+}
+.title-block-cell {
+  padding: .8rem 1rem;
+  border-right: 1px solid var(--steel-blue);
+  border-bottom: 1px solid var(--steel-blue);
+}
+.title-block-cell:nth-child(2n) { border-right: none; }
+.title-block-cell:nth-child(n+5) { border-bottom: none; }
+.tb-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: .25rem;
+}
+.tb-val {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  color: var(--steel-blue-deep);
+  font-weight: 500;
+}
+.tb-val em { font-style: italic; }
+.tb-val.big {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .02em;
+}
+
+/* ════ THE GAP - persona contrast ════ */
+.gap-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.gap-inner { max-width: 1280px; margin: 0 auto; }
+
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  letter-spacing: .2em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: .5rem;
+  padding-left: 28px;
+  position: relative;
+}
+.section-label::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 20px; height: 1.5px;
+  background: var(--orange);
+}
+
+.gap-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  padding-bottom: 1.6rem;
+  border-bottom: 2px solid var(--steel-blue);
+  margin-bottom: 3rem;
+}
+.gap-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--steel-blue-deep);
+  letter-spacing: -.015em;
+}
+.gap-title em { font-style: italic; color: var(--orange); }
+
+.gap-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* persona cards */
+.persona-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.persona-card {
+  padding: 2.2rem 2.4rem;
+  position: relative;
+  border: 1.5px solid var(--steel-blue);
+}
+.persona-card.assumed {
+  background: var(--paper-cream);
+  opacity: 0.92;
+}
+.persona-card.real {
+  background: var(--steel-blue);
+  color: var(--paper-cream);
+  border-color: var(--steel-blue);
+  box-shadow: 6px 6px 0 var(--orange);
+}
+
+.persona-tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: .4rem .9rem;
+  margin-bottom: 1.2rem;
+}
+.persona-card.assumed .persona-tag {
+  background: var(--paper-warm);
+  color: var(--muted);
+  border: 1px solid var(--muted);
+}
+.persona-card.real .persona-tag {
+  background: var(--orange);
+  color: white;
+}
+
+.persona-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.persona-card.assumed .persona-name { color: var(--muted); }
+.persona-card.real .persona-name { color: var(--paper-cream); }
+.persona-card.real .persona-name em { color: var(--orange); font-style: italic; }
+
+.persona-desc {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.persona-card.assumed .persona-desc { color: var(--muted); }
+.persona-card.real .persona-desc { color: rgba(242,235,218,0.85); }
+.persona-card.real .persona-desc strong { color: var(--orange-soft); font-weight: 700; }
+
+.persona-attrs {
+  list-style: none;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed;
+}
+.persona-card.assumed .persona-attrs { border-color: var(--line); }
+.persona-card.real .persona-attrs { border-color: rgba(242,235,218,0.2); }
+.persona-attrs li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .03em;
+  padding: .4rem 0 .4rem 1.4rem;
+  position: relative;
+  font-weight: 500;
+}
+.persona-card.assumed .persona-attrs li { color: var(--muted); }
+.persona-card.real .persona-attrs li { color: rgba(242,235,218,0.85); }
+.persona-attrs li::before {
+  content: '►';
+  position: absolute; left: 0; top: .4rem;
+  font-size: .55rem;
+  font-family: monospace;
+}
+.persona-card.assumed .persona-attrs li::before { color: var(--muted); }
+.persona-card.real .persona-attrs li::before { color: var(--orange); }
+
+/* ════ REFRAME - design pivot ════ */
+.reframe-section {
+  background: var(--steel-blue-deep);
+  color: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.reframe-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 25% 50%, rgba(255,107,53,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.reframe-section::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, rgba(242,235,218,0.04) 49.5%, rgba(242,235,218,0.04) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, rgba(242,235,218,0.04) 49.5%, rgba(242,235,218,0.04) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.reframe-inner {
+  max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 2;
+  text-align: center;
+}
+
+.reframe-section .section-label { color: var(--orange-soft); justify-content: center; }
+.reframe-section .section-label::before { background: var(--orange-soft); }
+
+.reframe-mega {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--paper-cream);
+  margin: 2rem 0;
+  letter-spacing: -.01em;
+}
+.reframe-mega .strikethrough {
+  position: relative;
+  color: rgba(242,235,218,0.45);
+}
+.reframe-mega .strikethrough::after {
+  content: '';
+  position: absolute;
+  left: -3%; right: -3%; top: 52%;
+  height: 3px;
+  background: var(--orange);
+  transform: rotate(-1.5deg);
+}
+.reframe-mega .replacement {
+  display: block;
+  margin-top: 1rem;
+  font-style: italic;
+  color: var(--orange);
+  font-weight: 500;
+}
+
+.reframe-explain {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(242,235,218,0.8);
+  max-width: 720px;
+  margin: 0 auto 2rem;
+}
+.reframe-explain strong { color: var(--orange); font-weight: 500; font-style: normal; }
+
+/* ════ GOALS - spec sheet ════ */
+.specs-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+.specs-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.specs-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.specs-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  padding-bottom: 1.6rem;
+  border-bottom: 2px solid var(--steel-blue);
+  margin-bottom: 3rem;
+}
+.specs-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--steel-blue-deep);
+  letter-spacing: -.015em;
+}
+.specs-title em { font-style: italic; color: var(--orange); }
+.specs-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* spec table - 4 numbered specs */
+.spec-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 80px;
+  gap: 2rem;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+.spec-row:last-child { border-bottom: none; }
+
+.spec-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .12em;
+  background: var(--paper-warm);
+  padding: .5rem .8rem;
+  border: 1.5px solid var(--steel-blue);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.spec-content h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--steel-blue-deep);
+  margin-bottom: .4rem;
+  line-height: 1.2;
+}
+.spec-content h3 em { font-style: italic; color: var(--orange); }
+
+.spec-content p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.spec-callout {
+  width: 60px; height: 60px;
+  border: 1.5px solid var(--orange);
+  border-radius: 50%;
+  background: rgba(255,107,53,0.06);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: .12em;
+  color: var(--orange);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  text-transform: uppercase;
+  justify-self: center;
+}
+
+/* ════ PROTOTYPE GALLERY ════ */
+.proto-section {
+  background: var(--paper-warm);
+  padding: 5rem 5rem;
+  position: relative; overflow: hidden;
+}
+.proto-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px; pointer-events: none; opacity: .6;
+}
+
+.proto-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.proto-header {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 4rem; align-items: end;
+  margin-bottom: 3rem; padding-bottom: 1.6rem;
+  border-bottom: 2px solid var(--steel-blue);
+}
+.proto-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500; line-height: 1.05;
+  color: var(--steel-blue-deep); letter-spacing: -.015em;
+}
+.proto-title em { font-style: italic; color: var(--orange); }
+
+.proto-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem; font-style: italic;
+  color: var(--ink-soft); line-height: 1.5;
+}
+
+/* polaroid grid */
+.proto-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.polaroid {
+  background: white;
+  padding: 12px 12px 54px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  position: relative;
+  transition: transform .35s, box-shadow .35s;
+}
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.04) !important;
+  z-index: 10;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
+.polaroid img {
+  width: 100%; display: block;
+  object-fit: cover; aspect-ratio: 4/3;
+  filter: contrast(1.05) saturate(0.9);
+}
+.polaroid-cap {
+  position: absolute;
+  bottom: 10px; left: 12px; right: 12px;
+  font-family: 'Caveat', cursive;
+  font-size: 1rem; color: var(--ink-soft);
+  text-align: center; line-height: 1.2;
+}
+.polaroid-tag {
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: white; padding: .2rem .7rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+}
+.polaroid.p1 { transform: rotate(-3deg); margin-top: 20px; }
+.polaroid.p2 { transform: rotate(2deg); }
+.polaroid.p3 { transform: rotate(-1.5deg); margin-top: 30px; }
+.polaroid.p4 { transform: rotate(2.5deg); margin-top: 10px; }
+
+.proto-caption {
+  margin-top: 2.5rem;
+  background: var(--steel-blue);
+  color: var(--paper-cream);
+  padding: 1.5rem 2rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  position: relative; z-index: 2;
+}
+.proto-caption-icon {
+  font-size: 2rem; flex-shrink: 0;
+}
+.proto-caption p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem; font-style: italic;
+  line-height: 1.55; color: rgba(242,235,218,0.9);
+}
+.proto-caption p strong { color: var(--orange-soft); font-style: normal; font-weight: 700; }
+.principle-section {
+  background: var(--steel-blue);
+  color: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.principle-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, rgba(242,235,218,0.04) 49.5%, rgba(242,235,218,0.04) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, rgba(242,235,218,0.04) 49.5%, rgba(242,235,218,0.04) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+.principle-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,107,53,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.principle-inner {
+  max-width: 950px; margin: 0 auto;
+  position: relative; z-index: 2;
+}
+
+.principle-pre {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--orange-soft);
+  margin-bottom: 1.5rem;
+  display: inline-flex; align-items: center; gap: .7rem;
+  font-weight: 700;
+}
+.principle-pre::before, .principle-pre::after {
+  content: ''; width: 30px; height: 1px; background: var(--orange-soft);
+}
+
+.principle-quote {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--paper-cream);
+  letter-spacing: -.005em;
+}
+.principle-quote em {
+  color: var(--orange);
+  font-weight: 500;
+}
+
+/* ════ REFLECTION ════ */
+.reflection-section {
+  background: var(--paper-warm);
+  padding: 5rem 5rem 6rem;
+  position: relative;
+}
+.reflection-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(0deg, transparent 49.5%, rgba(44,74,94,0.04) 50%, transparent 50.5%);
+  background-size: 100% 32px;
+  pointer-events: none;
+  opacity: .8;
+}
+
+.reflection-inner {
+  max-width: 1280px; margin: 0 auto;
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.reflection-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--steel-blue-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.reflection-title em { font-style: italic; color: var(--orange); }
+
+.hand-entry {
+  background: #FFF5D6;
+  padding: 1.4rem 1.6rem;
+  margin-top: 1.5rem;
+  position: relative;
+  transform: rotate(-1.2deg);
+  box-shadow: 3px 4px 12px rgba(0,0,0,0.12);
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.hand-entry::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 30px;
+  width: 70px; height: 18px;
+  background: rgba(255,107,53,0.7);
+  transform: rotate(-2deg);
+}
+.hand-entry .meta {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+.reflection-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  columns: 2;
+  column-gap: 3rem;
+}
+.reflection-body p { margin-bottom: 1rem; break-inside: avoid; }
+.reflection-body p strong { color: var(--steel-blue-deep); font-weight: 600; }
+
+/* ════ NAV ════ */
+.proj-nav-section {
+  background: var(--steel-blue-deep);
+  color: var(--paper-cream);
+  padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.proj-nav-link {
+  text-decoration: none; color: var(--paper-cream);
+  display: flex; flex-direction: column; gap: .4rem;
+  transition: transform .25s;
+}
+.proj-nav-link:hover { transform: translateY(-3px); }
+.proj-nav-link.next { text-align: right; align-items: flex-end; }
+.nav-link-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+}
+.nav-link-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem; font-style: italic; font-weight: 500;
+}
+
+footer {
+  background: var(--steel-blue-deep) !important;
+  color: rgba(242,235,218,0.5) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+footer a { color: rgba(242,235,218,0.7) !important; }
+footer a:hover { color: var(--orange) !important; }
+
+@media (max-width: 1100px) {
+  .back-bar { left: 2rem; top: 4.5rem; }
+  .bp-hero, .gap-section, .reframe-section, .specs-section, .proto-section, .principle-section, .reflection-section { padding: 4rem 2rem; }
+  .bp-content, .gap-header, .specs-header, .proto-header, .reflection-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .proto-grid { grid-template-columns: 1fr 1fr; }
+  .polaroid { transform: rotate(0deg) !important; margin-top: 0 !important; }
+  .persona-grid { grid-template-columns: 1fr; }
+  .spec-row { grid-template-columns: 1fr; gap: 1rem; }
+  .spec-callout { grid-row: 1; justify-self: start; }
+  .reflection-body { columns: 1; }
+  .detail-circle { display: none; }
+  .dim-line.left { display: none; }
+  .dim-label.left { display: none; }
+}
+@media (max-width: 700px) {
+  .back-bar { left: 1rem; padding: .4rem .9rem; font-size: .62rem; }
+  .bp-meta-strip { flex-direction: column; gap: .5rem; align-items: start; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jingying</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="experiences.html">Experiences</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<a href="projects.html" class="back-bar">All Projects</a>
+
+<!-- ═══ HERO - BLUEPRINT ═══ -->
+<section class="bp-hero">
+  <div class="bp-meta-strip">
+    <div class="l">
+      <span class="file-no">SHEET 05/06 — REV. A</span>
+      <span>Product Concept</span>
+      <span>·</span>
+      <span>Accessible Podium</span>
+    </div>
+    <div>Filed · 2025 · Group Project</div>
+  </div>
+
+  <div class="bp-content">
+    <div class="product-image-wrap">
+      <div class="dim-line top"></div>
+      <span class="dim-label top">↔ ADJUSTABLE</span>
+      <div class="dim-line left"></div>
+      <span class="dim-label left">↕ HEIGHT</span>
+      <img src="https://static.wixstatic.com/media/de570c_1b3b1c9ce3a0453c83b81054447c375b~mv2.webp/v1/fill/w_500,h_400,q_85,enc_avif,quality_auto/de570c_1b3b1c9ce3a0453c83b81054447c375b~mv2.webp" alt="Sit-to-Stand Podium concept">
+      <div class="detail-circle">DET<br>A</div>
+      <div class="product-caption">
+        <strong>FIG. 01</strong> — Sit-to-Stand Podium · Concept Render
+      </div>
+    </div>
+
+    <div>
+      <div class="bp-prefix">Project 05 · Human-Centered Product</div>
+      <h1 class="bp-title">Sit-to-Stand <em>Podium.</em></h1>
+      <p class="bp-subtitle">An accessible adjustable podium for the users existing podiums forget — where setup requires almost no thinking, and dignity is the default.</p>
+
+      <div class="title-block">
+        <div class="title-block-cell">
+          <div class="tb-key">Project Type</div>
+          <div class="tb-val"><em>Group Concept</em></div>
+        </div>
+        <div class="title-block-cell">
+          <div class="tb-key">Year</div>
+          <div class="tb-val big">2025</div>
+        </div>
+        <div class="title-block-cell">
+          <div class="tb-key">Collaborators</div>
+          <div class="tb-val">Daniela · Dave · Diwen</div>
+        </div>
+        <div class="title-block-cell">
+          <div class="tb-key">Focus</div>
+          <div class="tb-val"><em>Accessibility · Autonomy</em></div>
+        </div>
+        <div class="title-block-cell">
+          <div class="tb-key">Method</div>
+          <div class="tb-val">User research → Persona → Prototype</div>
+        </div>
+        <div class="title-block-cell">
+          <div class="tb-key">Iterations</div>
+          <div class="tb-val big">02</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE GAP - PERSONAS ═══ -->
+<section class="gap-section">
+  <div class="gap-inner">
+    <div class="gap-header">
+      <div class="reveal">
+        <div class="section-num">§ 01</div>
+        <div class="section-label">Background</div>
+        <h2 class="gap-title">Designed for an <em>assumed user.</em></h2>
+      </div>
+      <p class="gap-tagline reveal">Podiums are treated as standard equipment — designed around a user profile that excludes more people than it includes.</p>
+    </div>
+
+    <div class="persona-grid">
+      <div class="persona-card assumed reveal">
+        <span class="persona-tag">▸ Standard Spec</span>
+        <h3 class="persona-name">"The Average Speaker"</h3>
+        <p class="persona-desc">The default podium is designed around a narrow user profile: an average-height adult who can stand unassisted, walk to the front of the room, and adjust their position freely.</p>
+        <ul class="persona-attrs">
+          <li>Average adult height (5'4" – 6'0")</li>
+          <li>Fully mobile, no assistive device</li>
+          <li>Sets up own equipment if needed</li>
+          <li>No additional accommodation required</li>
+        </ul>
+      </div>
+
+      <div class="persona-card real reveal">
+        <span class="persona-tag">★ Real User</span>
+        <h3 class="persona-name">The <em>excluded</em> speaker</h3>
+        <p class="persona-desc">Especially <strong>wheelchair users</strong> or speakers who require flexible height adjustment. These users frequently <strong>depend on others</strong> to set up the equipment — which strips away control in already high-pressure speaking situations.</p>
+        <ul class="persona-attrs">
+          <li>Wheelchair users (varied seat heights)</li>
+          <li>Shorter or taller than average</li>
+          <li>Limited upper-body strength</li>
+          <li>Needs setup that does not require help</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REFRAME ═══ -->
+<section class="reframe-section">
+  <div class="reframe-inner">
+    <div class="reveal">
+      <div class="section-num" style="color: rgba(242,235,218,0.5);">§ 02</div>
+      <div class="section-label">User Insight</div>
+    </div>
+
+    <p class="reframe-mega reveal">
+      Users don't need <span class="strikethrough">"adjustable."</span>
+      <span class="replacement">They need "almost no thinking required to adjust."</span>
+    </p>
+
+    <p class="reframe-explain reveal">The real problem is <strong>not missing features</strong>. It is the loss of independence that comes with needing help to set up a piece of furniture before you can speak.</p>
+  </div>
+</section>
+
+<!-- ═══ DESIGN GOALS / SPECS ═══ -->
+<section class="specs-section">
+  <div class="specs-inner">
+    <div class="specs-header">
+      <div class="reveal">
+        <div class="section-num">§ 03</div>
+        <div class="section-label">Design Goals</div>
+        <h2 class="specs-title">Four specifications, <em>one principle.</em></h2>
+      </div>
+      <p class="specs-tagline reveal">Each goal is grounded in a specific user need — not a generic accessibility checklist. Designing <em>with</em>, not <em>for</em>.</p>
+    </div>
+
+    <div class="spec-row reveal">
+      <div class="spec-num">SPEC<br>01</div>
+      <div class="spec-content">
+        <h3>Independent <em>Setup.</em></h3>
+        <p>Configurable by the user with minimal physical effort — no need for someone else to adjust it first. The podium should always arrive ready to be claimed by whoever uses it next.</p>
+      </div>
+      <div class="spec-callout">SOLO<br>USE</div>
+    </div>
+
+    <div class="spec-row reveal">
+      <div class="spec-num">SPEC<br>02</div>
+      <div class="spec-content">
+        <h3>Intuitive <em>Height Adjustment.</em></h3>
+        <p>Easy and fast height changes that require almost no learning curve. The interface should disappear behind the action — operate, don't deliberate.</p>
+      </div>
+      <div class="spec-callout">NO<br>MANUAL</div>
+    </div>
+
+    <div class="spec-row reveal">
+      <div class="spec-num">SPEC<br>03</div>
+      <div class="spec-content">
+        <h3>Portable &amp; <em>Mobile.</em></h3>
+        <p>Equipped with wheels for mobility across rooms, set up in different venues, and stored compactly when not in use. Accessibility shouldn't be locked to one location.</p>
+      </div>
+      <div class="spec-callout">ON<br>WHEELS</div>
+    </div>
+
+    <div class="spec-row reveal">
+      <div class="spec-num">SPEC<br>04</div>
+      <div class="spec-content">
+        <h3>Wheelchair <em>Accessible.</em></h3>
+        <p>Sufficient width and clearance to accommodate wheelchair users — making accessibility the default, not an afterthought. Built into the geometry, not bolted on after.</p>
+      </div>
+      <div class="spec-callout">CLEAR<br>BELOW</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRINCIPLE QUOTE ═══ -->
+<!-- ═══ PROTOTYPE GALLERY ═══ -->
+<section class="proto-section">
+  <div class="proto-inner">
+    <div class="proto-header">
+      <div class="reveal">
+        <div class="section-num">§ 03.5</div>
+        <div class="section-label">Low-Fi Prototype</div>
+        <h2 class="proto-title">We built it out of <em>cardboard.</em></h2>
+      </div>
+      <p class="proto-tagline reveal">Before designing anything digitally, we built a physical low-fidelity prototype to understand the real mechanics — height adjustment, wheelchair clearance, and the button placement that had to work with one hand.</p>
+    </div>
+
+    <div class="proto-grid reveal">
+      <div class="polaroid p1">
+        <div class="polaroid-tag">FRONT VIEW</div>
+        <img src="podium-front.png" alt="Cardboard podium prototype front view with Georgetown University label">
+        <div class="polaroid-cap">Front: speech-to-text screen panel</div>
+      </div>
+      <div class="polaroid p2">
+        <div class="polaroid-tag">REAR VIEW</div>
+        <img src="podium-rear.jpg" alt="Cardboard podium rear view showing height mechanism">
+        <div class="polaroid-cap">Internal shelf slides up &amp; locks</div>
+      </div>
+      <div class="polaroid p3">
+        <div class="polaroid-tag">MECHANISM</div>
+        <img src="podium-detail1.jpg" alt="Hand demonstrating the sliding shelf mechanism">
+        <div class="polaroid-cap">One-button height adjustment</div>
+      </div>
+      <div class="polaroid p4">
+        <div class="polaroid-tag">DETAIL</div>
+        <img src="podium-detail2.jpg" alt="Close-up of the height adjustment mechanism">
+        <div class="polaroid-cap">Scissor-lift internal structure</div>
+      </div>
+    </div>
+
+    <div class="proto-caption reveal">
+      <div class="proto-caption-icon">📦</div>
+      <p>The prototype used a single push-button on the side panel to trigger height adjustment — so a wheelchair user could operate it <strong>entirely without standing up or asking for help</strong>. The cardboard version proved the mechanism worked before we committed it to any final material.</p>
+    </div>
+  </div>
+</section>
+
+<section class="principle-section">
+  <div class="principle-inner reveal">
+    <div class="principle-pre">★ A Core Principle ★</div>
+    <p class="principle-quote">More broadly, the task was to <em>rethink how a common object</em> could better support <em>autonomy and dignity</em> in public speaking.</p>
+  </div>
+</section>
+
+<!-- ═══ REFLECTION ═══ -->
+<section class="reflection-section">
+  <div class="reflection-inner">
+    <div class="reveal">
+      <div class="section-num">§ 04</div>
+      <div class="section-label">Reflection</div>
+      <h2 class="reflection-title">Design is <em>not neutral.</em></h2>
+      <div class="hand-entry">
+        <span class="meta">— Project closing note</span>
+        I went into this thinking accessibility meant <strong>more features</strong>. I left thinking it meant <strong>fewer obstacles</strong>.
+      </div>
+    </div>
+
+    <div class="reflection-body reveal">
+      <p>This project pushed me to rethink what "accessibility" actually means in design. Initially, I focused on adding adjustable features, but through empathy mapping and prototyping, I realized that <strong>true accessibility is about minimizing effort and enabling independence</strong> — not about giving users more knobs to turn.</p>
+
+      <p>Designing the height adjustment mechanism was particularly challenging, as I had to translate abstract ideas into simple, usable structures without an engineering background. Building a <strong>low-fidelity prototype</strong> helped me understand how users interact with physical objects, not just how they look on paper.</p>
+
+      <p>I also became more aware of the <strong>psychological dimension of design</strong> — how dependence on others can affect confidence in public speaking. This project taught me to prioritize user autonomy and simplicity over complexity, and to approach design problems from both a functional and experiential perspective.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NAV ═══ -->
+<section class="proj-nav-section">
+  <a href="project-learning-engagement.html" class="proj-nav-link">
+    <span class="nav-link-label">← Previous Project</span>
+    <span class="nav-link-title">ADHD Writing Experience</span>
+  </a>
+  <a href="project-university-design.html" class="proj-nav-link next">
+    <span class="nav-link-label">Next Project</span>
+    <span class="nav-link-title">Influence University →</span>
+  </a>
+</section>
+
+<footer>
+  <span>© 2026 Jingying Chen · Made with care</span>
+  <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing() { rx += (mx-rx)*.13; ry += (my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='34px'; ring.style.height='34px'; });
+});
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

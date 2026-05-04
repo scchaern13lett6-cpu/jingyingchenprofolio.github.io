@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Improving ADHD Writing Experience · Jingying Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ════════════════════════════════════════════
+   ADHD WRITING — LAB NOTEBOOK / ITERATION JOURNAL
+   ════════════════════════════════════════════ */
+
+:root {
+  --notebook-purple: #3D2E5C;
+  --notebook-purple-deep: #251A38;
+  --notebook-purple-mid: #5A4480;
+  --paper-grid: #F8F4E8;
+  --paper-warm: #F0EAD8;
+  --orange: #FF6B35;
+  --orange-soft: #FFB088;
+  --highlight-yellow: #FFD166;
+  --highlight-marker: rgba(255,209,102,0.55);
+  --strike-red: #C8392E;
+  --ink-deep: #1A1410;
+  --ink-soft: #3D2E26;
+  --muted: #6B5D4F;
+  --line: rgba(61,46,92,0.18);
+  --grid-line: rgba(61,46,92,0.08);
+}
+
+body {
+  background: var(--paper-grid);
+  color: var(--ink-deep);
+  font-family: 'Crimson Pro', Georgia, serif;
+}
+
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  z-index: 9999; pointer-events: none;
+}
+
+nav {
+  background: rgba(248,244,232,0.92) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+.nav-logo { color: var(--notebook-purple) !important; }
+.nav-links a { color: var(--ink-soft) !important; }
+.nav-links a.active { color: var(--orange) !important; }
+.nav-links a:hover { color: var(--orange) !important; }
+.nav-links a::after { background: var(--orange) !important; }
+
+.cursor { background: var(--orange) !important; }
+.cursor-ring { border-color: var(--orange) !important; }
+
+.back-bar {
+  position: fixed; top: 5rem; left: 4rem; z-index: 400;
+  background: var(--paper-grid);
+  border: 1.5px solid var(--notebook-purple);
+  border-radius: 0;
+  padding: .5rem 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--notebook-purple);
+  box-shadow: 3px 3px 0 var(--orange);
+  transition: transform .25s, box-shadow .25s;
+  font-weight: 600;
+}
+.back-bar:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--orange); }
+.back-bar::before { content: '← '; }
+
+/* graph paper grid layer used in many sections */
+.grid-bg {
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+}
+
+/* ════ HERO - LAB NOTEBOOK COVER ════ */
+.lab-hero {
+  position: relative;
+  background: var(--paper-grid);
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  padding: 7rem 5rem 4rem;
+  border-bottom: 6px double var(--notebook-purple);
+  position: relative;
+}
+
+/* red margin line on left like a notebook */
+.lab-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 70px;
+  width: 2px;
+  background: var(--strike-red);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.lab-meta-strip {
+  max-width: 1280px; margin: 0 auto 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .8rem 1.2rem;
+  background: var(--notebook-purple);
+  color: var(--paper-grid);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.lab-meta-strip .l { display: flex; gap: 1.4rem; align-items: center; }
+.lab-meta-strip .file-no {
+  background: var(--paper-grid);
+  color: var(--notebook-purple);
+  padding: .25rem .7rem;
+  font-weight: 700;
+}
+
+.lab-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.lab-prefix {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+.lab-prefix::before { content: '▌ '; }
+
+.lab-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--notebook-purple-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.lab-title em { font-style: italic; color: var(--orange); }
+
+.lab-subtitle {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 2rem;
+  padding-left: 1.4rem;
+  border-left: 3px solid var(--orange);
+}
+
+.lab-author-row {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px dashed var(--line);
+}
+.lab-author-block { display: flex; flex-direction: column; gap: .15rem; }
+.aut-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.aut-val {
+  font-family: 'Crimson Pro', serif;
+  font-size: .98rem;
+  color: var(--notebook-purple-deep);
+  font-weight: 500;
+}
+.aut-val em { font-style: italic; }
+
+.lab-link {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: var(--notebook-purple);
+  color: var(--paper-grid);
+  padding: .9rem 1.6rem;
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: 2px solid var(--notebook-purple);
+  transition: background .2s, color .2s;
+}
+.lab-link:hover { background: var(--orange); border-color: var(--orange); }
+.lab-link::after { content: ' ↗'; }
+
+/* RIGHT: brief sticky note */
+.brief-note {
+  background: #FFF6D8;
+  padding: 1.8rem 2rem 2rem;
+  position: relative;
+  transform: rotate(2deg);
+  box-shadow: 4px 6px 18px rgba(0,0,0,0.18);
+  font-family: 'Caveat', cursive;
+  color: var(--ink-soft);
+}
+.brief-note::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 100px; height: 22px;
+  background: rgba(255,107,53,0.75);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.brief-note .brief-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: .8rem;
+  font-style: normal;
+}
+.brief-note .brief-quote {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  color: var(--notebook-purple-deep);
+}
+.brief-note .brief-quote strong {
+  background: var(--highlight-marker);
+  font-weight: 700;
+  padding: 0 4px;
+}
+.brief-note .brief-author {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ════ WHAT DIDN'T WORK - failed experiments with strikethroughs ════ */
+.fail-section {
+  background: var(--paper-grid);
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  padding: 5rem 5rem;
+  position: relative;
+}
+.fail-section::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 70px;
+  width: 2px;
+  background: var(--strike-red);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.fail-inner { max-width: 1280px; margin: 0 auto; }
+
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  letter-spacing: .2em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: .5rem;
+  padding-left: 28px;
+  position: relative;
+}
+.section-label::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 20px; height: 1.5px;
+  background: var(--orange);
+}
+
+.fail-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--notebook-purple);
+}
+.fail-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--notebook-purple-deep);
+  letter-spacing: -.015em;
+}
+.fail-title em { font-style: italic; color: var(--strike-red); }
+.fail-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* notebook page with crossed-out attempts */
+.fail-page {
+  background: white;
+  padding: 2.5rem 3rem;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 100% 32px;
+}
+.fail-page::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 60px;
+  width: 1.5px;
+  background: var(--strike-red);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.fail-page::after {
+  content: 'FAILED · ITERATION 01';
+  position: absolute;
+  top: 1.5rem; right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  color: var(--strike-red);
+  background: rgba(200,57,46,0.12);
+  border: 1.5px solid var(--strike-red);
+  padding: .3rem .8rem;
+  font-weight: 700;
+  transform: rotate(2deg);
+}
+
+.fail-page h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--notebook-purple-deep);
+  margin-bottom: 1.2rem;
+  padding-left: 2rem;
+}
+
+.fail-strategies {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  padding-left: 2rem;
+}
+
+.fail-card {
+  border-left: 3px solid var(--strike-red);
+  padding: 1rem 1.2rem;
+  background: rgba(200,57,46,0.05);
+  position: relative;
+}
+.fail-card .strat-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .15em;
+  color: var(--strike-red);
+  font-weight: 700;
+  margin-bottom: .3rem;
+}
+.fail-card .strat-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--notebook-purple-deep);
+  margin-bottom: .5rem;
+  position: relative;
+  display: inline-block;
+}
+.fail-card .strat-name::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%; top: 52%;
+  height: 2px;
+  background: var(--strike-red);
+  transform: rotate(-1.5deg);
+  opacity: 0.7;
+}
+.fail-card .strat-why {
+  font-family: 'Crimson Pro', serif;
+  font-size: .95rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.fail-card .strat-why strong {
+  background: var(--highlight-marker);
+  padding: 0 3px;
+  font-weight: 600;
+}
+
+.realization {
+  margin-top: 3rem;
+  background: var(--notebook-purple);
+  color: var(--paper-grid);
+  padding: 2rem 2.4rem;
+  position: relative;
+  border-left: 6px solid var(--orange);
+}
+.realization::before {
+  content: '!';
+  position: absolute;
+  top: -1rem; left: 1rem;
+  width: 40px; height: 40px;
+  background: var(--orange);
+  color: white;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid var(--paper-grid);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0 var(--notebook-purple-deep);
+}
+.realization-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange-soft);
+  margin-bottom: .8rem;
+  font-weight: 700;
+}
+.realization-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--paper-grid);
+}
+.realization-text strong {
+  font-style: normal;
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* ════ REFRAMING - notebook 2 page spread ════ */
+.reframe-section {
+  background: var(--notebook-purple-deep);
+  color: var(--paper-grid);
+  padding: 5rem 5rem;
+  position: relative;
+}
+.reframe-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 25% 50%, rgba(255,107,53,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 75% 50%, rgba(255,209,102,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.reframe-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.reframe-section .section-label { color: var(--highlight-yellow); }
+.reframe-section .section-label::before { background: var(--highlight-yellow); }
+
+.reframe-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(248,244,232,0.18);
+}
+.reframe-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--paper-grid);
+  letter-spacing: -.015em;
+}
+.reframe-title em { font-style: italic; color: var(--orange); }
+
+/* 2 page spread effect */
+.spread {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-bottom: 2.5rem;
+}
+
+.spread-page {
+  background: rgba(248,244,232,0.06);
+  border: 1px solid rgba(248,244,232,0.18);
+  padding: 2rem 2.2rem;
+  position: relative;
+}
+.spread-page.from {
+  border-left: 4px solid var(--strike-red);
+}
+.spread-page.to {
+  border-left: 4px solid var(--orange);
+  background: rgba(255,107,53,0.1);
+}
+
+.page-tab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  padding: .35rem .7rem;
+}
+.spread-page.from .page-tab {
+  background: rgba(200,57,46,0.18);
+  color: var(--strike-red);
+  border: 1px solid var(--strike-red);
+}
+.spread-page.to .page-tab {
+  background: var(--orange);
+  color: white;
+}
+
+.spread-q {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--paper-grid);
+}
+.spread-page.from .spread-q { position: relative; }
+.spread-page.from .spread-q::after {
+  content: '';
+  position: absolute;
+  left: -2%; right: -2%; top: 50%;
+  height: 2px;
+  background: var(--strike-red);
+  transform: rotate(-2deg);
+  opacity: 0.7;
+}
+.spread-page.to .spread-q em {
+  font-style: italic;
+  color: var(--highlight-yellow);
+  background: rgba(255,209,102,0.18);
+  padding: 0 4px;
+}
+
+.spread-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Crimson Pro', serif;
+  font-size: 2.5rem;
+  color: var(--orange);
+  font-style: italic;
+}
+
+/* drivers list */
+.drivers-block {
+  background: rgba(248,244,232,0.06);
+  border-left: 4px solid var(--highlight-yellow);
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+.drivers-block h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--highlight-yellow);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.drivers-tags {
+  display: flex; flex-wrap: wrap; gap: .6rem;
+}
+.driver-tag {
+  background: rgba(255,107,53,0.18);
+  color: var(--orange-soft);
+  border: 1px solid rgba(255,107,53,0.4);
+  padding: .55rem 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+
+.reframe-note {
+  font-family: 'Caveat', cursive;
+  font-size: 1.6rem;
+  color: var(--highlight-yellow);
+  text-align: center;
+  margin-top: 2rem;
+  line-height: 1.4;
+}
+.reframe-note em { color: var(--orange); }
+
+/* ════ WHAT WORKS - 3 iteration entries ════ */
+.works-section {
+  background: var(--paper-warm);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.works-inner { max-width: 1280px; margin: 0 auto; }
+
+.works-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--notebook-purple);
+}
+.works-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--notebook-purple-deep);
+  letter-spacing: -.015em;
+}
+.works-title em { font-style: italic; color: var(--orange); }
+.works-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.works-tagline em {
+  font-style: normal;
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: var(--orange);
+}
+
+/* iteration entries - one per line */
+.iter-entry {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 2.5rem;
+  padding: 2.2rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.iter-entry:last-child { border-bottom: none; }
+
+.iter-num-block {
+  display: flex; flex-direction: column; gap: .4rem;
+}
+.iter-version {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.iter-num {
+  font-family: 'Crimson Pro', serif;
+  font-size: 3.8rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--orange);
+  line-height: .85;
+  letter-spacing: -.03em;
+}
+.iter-status {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem;
+  letter-spacing: .15em;
+  font-weight: 700;
+  background: var(--notebook-purple);
+  color: var(--paper-grid);
+  padding: .3rem .7rem;
+  margin-top: .5rem;
+  width: fit-content;
+}
+
+.iter-content h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--notebook-purple-deep);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -.005em;
+}
+.iter-content h3 em { font-style: italic; color: var(--orange); }
+
+.iter-content p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+.iter-content p strong { color: var(--notebook-purple-deep); font-weight: 600; }
+
+.iter-content ul {
+  list-style: none;
+  display: flex; flex-direction: column; gap: .4rem;
+  margin-bottom: 1rem;
+}
+.iter-content ul li {
+  font-family: 'Crimson Pro', serif;
+  font-size: .95rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding-left: 1.4rem;
+  position: relative;
+}
+.iter-content ul li::before {
+  content: '►';
+  position: absolute; left: 0; top: 0;
+  color: var(--orange);
+  font-size: .65rem;
+  font-family: monospace;
+  top: 4px;
+}
+
+.iter-focus {
+  display: inline-block;
+  background: var(--highlight-marker);
+  color: var(--notebook-purple-deep);
+  padding: .5rem .9rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
+  border-left: 3px solid var(--orange);
+  margin-top: .5rem;
+}
+
+/* ════ TAKEAWAYS - margin annotations ════ */
+.so-section {
+  background: var(--paper-grid);
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, var(--grid-line) 49.5%, var(--grid-line) 50.5%, transparent 50.5%);
+  background-size: 32px 32px;
+  padding: 5rem 5rem;
+  position: relative;
+}
+.so-section::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 70px;
+  width: 2px;
+  background: var(--strike-red);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.so-inner { max-width: 1280px; margin: 0 auto; }
+
+.so-header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--notebook-purple);
+}
+.so-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--notebook-purple-deep);
+  letter-spacing: -.015em;
+}
+.so-title em { font-style: italic; color: var(--orange); }
+
+/* margin annotations layout */
+.so-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 2.5rem;
+}
+
+.so-item {
+  background: white;
+  padding: 1.8rem 2rem 1.8rem 3.5rem;
+  position: relative;
+  border-left: 4px solid var(--orange);
+  box-shadow: 3px 4px 12px rgba(0,0,0,0.07);
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.so-item::before {
+  content: counter(so-counter, decimal-leading-zero);
+  counter-increment: so-counter;
+  position: absolute;
+  top: 1.4rem; left: 1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .05em;
+}
+.so-list { counter-reset: so-counter; }
+.so-item:nth-child(2) { border-left-color: var(--notebook-purple); }
+.so-item:nth-child(2)::before { color: var(--notebook-purple); }
+.so-item:nth-child(3) { border-left-color: var(--highlight-yellow); }
+.so-item:nth-child(3)::before { color: var(--orange); }
+.so-item:nth-child(4) { border-left-color: var(--strike-red); }
+.so-item:nth-child(4)::before { color: var(--strike-red); }
+.so-item strong { color: var(--notebook-purple-deep); font-weight: 700; }
+.so-item em {
+  background: var(--highlight-marker);
+  font-style: normal;
+  padding: 0 3px;
+  font-weight: 600;
+}
+
+/* ════ REFLECTION - notebook journal entry ════ */
+.reflection-section {
+  background: var(--paper-warm);
+  padding: 5rem 5rem 6rem;
+  position: relative;
+}
+.reflection-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(0deg, transparent 49.5%, rgba(61,46,92,0.04) 50%, transparent 50.5%);
+  background-size: 100% 32px;
+  pointer-events: none;
+  opacity: .8;
+}
+
+.reflection-inner {
+  max-width: 1280px; margin: 0 auto;
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.reflection-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--notebook-purple-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.reflection-title em { font-style: italic; color: var(--orange); }
+
+.hand-entry {
+  background: #FFF6D8;
+  padding: 1.4rem 1.6rem;
+  margin-top: 1.5rem;
+  position: relative;
+  transform: rotate(-1.2deg);
+  box-shadow: 3px 4px 12px rgba(0,0,0,0.12);
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.hand-entry::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 30px;
+  width: 70px; height: 18px;
+  background: rgba(255,107,53,0.7);
+  transform: rotate(-2deg);
+}
+.hand-entry .meta {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+.reflection-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  columns: 2;
+  column-gap: 3rem;
+}
+.reflection-body p { margin-bottom: 1rem; break-inside: avoid; }
+.reflection-body p strong { color: var(--notebook-purple-deep); font-weight: 600; }
+
+/* ════ NAV ════ */
+.proj-nav-section {
+  background: var(--notebook-purple-deep);
+  color: var(--paper-grid);
+  padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.proj-nav-link {
+  text-decoration: none; color: var(--paper-grid);
+  display: flex; flex-direction: column; gap: .4rem;
+  transition: transform .25s;
+}
+.proj-nav-link:hover { transform: translateY(-3px); }
+.proj-nav-link.next { text-align: right; align-items: flex-end; }
+.nav-link-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+}
+.nav-link-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem; font-style: italic; font-weight: 500;
+}
+
+footer {
+  background: var(--notebook-purple-deep) !important;
+  color: rgba(248,244,232,0.5) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+footer a { color: rgba(248,244,232,0.7) !important; }
+footer a:hover { color: var(--orange) !important; }
+
+@media (max-width: 1100px) {
+  .back-bar { left: 2rem; top: 4.5rem; }
+  .lab-hero, .fail-section, .reframe-section, .works-section, .so-section, .reflection-section { padding: 4rem 2rem; }
+  .lab-hero::before, .fail-section::before, .so-section::before { left: 30px; }
+  .lab-content, .fail-header, .works-header, .reflection-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .fail-strategies { grid-template-columns: 1fr; }
+  .fail-page { padding-left: 1.5rem; }
+  .fail-page h3, .fail-strategies { padding-left: 1rem; }
+  .spread { grid-template-columns: 1fr; }
+  .spread-arrow { transform: rotate(90deg); padding: .5rem; }
+  .iter-entry { grid-template-columns: 1fr; gap: 1rem; }
+  .so-list { grid-template-columns: 1fr; }
+  .reflection-body { columns: 1; }
+}
+@media (max-width: 700px) {
+  .back-bar { left: 1rem; padding: .4rem .9rem; font-size: .62rem; }
+  .lab-meta-strip { flex-direction: column; gap: .5rem; align-items: start; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jingying</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="experiences.html">Experiences</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<a href="projects.html" class="back-bar">All Projects</a>
+
+<!-- ═══ HERO - LAB NOTEBOOK COVER ═══ -->
+<section class="lab-hero">
+  <div class="lab-meta-strip">
+    <div class="l">
+      <span class="file-no">EXP. NO. 2025-LDT-04</span>
+      <span>Lab Notebook</span>
+      <span>·</span>
+      <span>ADHD Writing Study</span>
+    </div>
+    <div>Filed · 2025 · Georgetown</div>
+  </div>
+
+  <div class="lab-content">
+    <div>
+      <div class="lab-prefix">Project 04 · Behavioral Design Iteration</div>
+      <h1 class="lab-title">Improving ADHD <em>Writing Experience.</em></h1>
+      <p class="lab-subtitle">A behavioral system redesign for ADHD learners — shifting from "how to write" to "how to start."</p>
+
+      <div class="lab-author-row">
+        <div class="lab-author-block">
+          <span class="aut-key">Researcher</span>
+          <span class="aut-val">Jingying Chen</span>
+        </div>
+        <div class="lab-author-block">
+          <span class="aut-key">Client</span>
+          <span class="aut-val"><em>Lee Skallerup Bessette</em></span>
+        </div>
+        <div class="lab-author-block">
+          <span class="aut-key">Method</span>
+          <span class="aut-val"><em>Iterate · Fail · Rebuild</em></span>
+        </div>
+        <div class="lab-author-block">
+          <span class="aut-key">Iterations</span>
+          <span class="aut-val">02 (V1 failed → V2)</span>
+        </div>
+      </div>
+
+      <a href="https://sites.google.com/georgetown.edu/adhd-writing-better/home?authuser=2" target="_blank" class="lab-link">View Project Site</a>
+    </div>
+
+    <div class="brief-note">
+      <span class="brief-label">— The Brief</span>
+      <p class="brief-quote">"Design a solution that improves ADHD students' writing experience — <strong>without relying on traditional instructional approaches.</strong>"</p>
+      <span class="brief-author">— Lee, week 1</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT DIDN'T WORK ═══ -->
+<section class="fail-section">
+  <div class="fail-inner">
+    <div class="fail-header">
+      <div class="reveal">
+        <div class="section-num">§ 01 · V1 (failed)</div>
+        <div class="section-label">First Iteration</div>
+        <h2 class="fail-title">What <em>didn't work.</em></h2>
+      </div>
+      <p class="fail-tagline reveal">— Going by the textbook. The "right" answer turned out to be the wrong one.</p>
+    </div>
+
+    <div class="fail-page reveal">
+      <h3>I followed conventional educational strategies — and watched each one fall apart in client review.</h3>
+
+      <div class="fail-strategies">
+        <div class="fail-card">
+          <div class="strat-num">▸ STRATEGY 01</div>
+          <div class="strat-name">Task breakdown</div>
+          <p class="strat-why">Smaller steps still required <strong>initiation</strong>, which is the actual bottleneck.</p>
+        </div>
+        <div class="fail-card">
+          <div class="strat-num">▸ STRATEGY 02</div>
+          <div class="strat-name">Multiple deadlines</div>
+          <p class="strat-why">Self-imposed deadlines had <strong>no real enforcement.</strong></p>
+        </div>
+        <div class="fail-card">
+          <div class="strat-num">▸ STRATEGY 03</div>
+          <div class="strat-name">Free writing</div>
+          <p class="strat-why">Rarely <strong>translated into final drafts.</strong></p>
+        </div>
+        <div class="fail-card">
+          <div class="strat-num">▸ STRATEGY 04</div>
+          <div class="strat-name">Group reflection</div>
+          <p class="strat-why">Required emotional energy ADHD learners <strong>often don't have.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="realization reveal">
+      <div class="realization-label">— Realization</div>
+      <p class="realization-text">Strategies that are <strong>pedagogically "correct"</strong> are not necessarily <strong>behaviorally effective</strong> for ADHD learners.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REFRAMING ═══ -->
+<section class="reframe-section">
+  <div class="reframe-inner">
+    <div class="reframe-header reveal">
+      <div class="section-num" style="color: rgba(248,244,232,0.5);">§ 02 · Pivot</div>
+      <div class="section-label">Reframing</div>
+      <h2 class="reframe-title">Wrong question, <em>wrong answer.</em></h2>
+    </div>
+
+    <div class="spread reveal">
+      <div class="spread-page from">
+        <span class="page-tab">★ FROM (V1)</span>
+        <p class="spread-q">"How do we teach writing better?"</p>
+      </div>
+      <div class="spread-arrow">→</div>
+      <div class="spread-page to">
+        <span class="page-tab">★ TO (V2)</span>
+        <p class="spread-q">"Why do ADHD students fail to <em>execute</em> writing tasks?"</p>
+      </div>
+    </div>
+
+    <div class="drivers-block reveal">
+      <h4>★ Through reflection, I identified the core drivers of ADHD behavior</h4>
+      <div class="drivers-tags">
+        <span class="driver-tag">Interest</span>
+        <span class="driver-tag">Novelty</span>
+        <span class="driver-tag">Challenge</span>
+        <span class="driver-tag">Urgency</span>
+        <span class="driver-tag">Immediate Reward</span>
+      </div>
+    </div>
+
+    <p class="reframe-note reveal">This aligns with <em>dopamine-based motivation</em> — not discipline-based learning.</p>
+  </div>
+</section>
+
+<!-- ═══ WHAT WORKS ═══ -->
+<section class="works-section">
+  <div class="works-inner">
+    <div class="works-header">
+      <div class="reveal">
+        <div class="section-num">§ 03 · V2 (working)</div>
+        <div class="section-label">Three Iterations</div>
+        <h2 class="works-title">What <em>works.</em></h2>
+      </div>
+      <p class="works-tagline reveal">Not magic — just systems that compensate for executive dysfunction. <em>Note: still might not work for every ADHD profile.</em></p>
+    </div>
+
+    <div class="iter-entry reveal">
+      <div class="iter-num-block">
+        <span class="iter-version">Iteration A</span>
+        <span class="iter-num">01</span>
+        <span class="iter-status">★ TESTED</span>
+      </div>
+      <div class="iter-content">
+        <h3>Dopamine-Driven <em>System.</em></h3>
+        <p>I designed a system that integrates motivation directly into the writing process — not as a reward at the end.</p>
+        <ul>
+          <li><strong>7 : 3</strong> structure (70% work, 30% reward)</li>
+          <li>Rewards must be highly engaging and pre-selected</li>
+          <li>Emphasis on immediate reinforcement, not delayed gratification</li>
+        </ul>
+        <span class="iter-focus">Replace willpower with structured incentive.</span>
+      </div>
+    </div>
+
+    <div class="iter-entry reveal">
+      <div class="iter-num-block">
+        <span class="iter-version">Iteration B</span>
+        <span class="iter-num">02</span>
+        <span class="iter-status">★ TESTED</span>
+      </div>
+      <div class="iter-content">
+        <h3>"Locked Writing" <em>Environment.</em></h3>
+        <p>A writing interface designed specifically for ADHD — environment doing the work willpower can't.</p>
+        <ul>
+          <li>Locks the screen to prevent distraction</li>
+          <li>Real-time word count, time spent, progress</li>
+          <li>Self-competition (historical best output)</li>
+          <li>Symbolic rewards (visual badges)</li>
+        </ul>
+        <span class="iter-focus">Replace self-control with environmental constraint &amp; feedback.</span>
+      </div>
+    </div>
+
+    <div class="iter-entry reveal">
+      <div class="iter-num-block">
+        <span class="iter-version">Iteration C</span>
+        <span class="iter-num">03</span>
+        <span class="iter-status">★ TESTED</span>
+      </div>
+      <div class="iter-content">
+        <h3>Externalized <em>Accountability.</em></h3>
+        <p>If internal executive function is unreliable, build the executive function outside the person.</p>
+        <ul>
+          <li>Shared scheduling tools for co-working</li>
+          <li>Enables "parallel work" rather than collaboration</li>
+          <li>Body-doubling reduces task initiation friction</li>
+          <li>Visibility creates social accountability</li>
+        </ul>
+        <span class="iter-focus">Compensate for weak internal executive function.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TAKEAWAYS ═══ -->
+<section class="so-section">
+  <div class="so-inner">
+    <div class="so-header reveal">
+      <div class="section-num">§ 04</div>
+      <div class="section-label">So...</div>
+      <h2 class="so-title">What this project <em>actually taught me.</em></h2>
+    </div>
+
+    <div class="so-list">
+      <div class="so-item reveal">
+        ADHD challenges are not primarily about <strong>ability</strong>. They are about <em>execution and motivation systems</em>.
+      </div>
+      <div class="so-item reveal">
+        Effective design must account for <strong>real behavior</strong>, not <em>ideal behavior</em>.
+      </div>
+      <div class="so-item reveal">
+        <strong>Empathy</strong> is not just understanding users — it requires <em>challenging your own assumptions</em> as a designer.
+      </div>
+      <div class="so-item reveal">
+        Learning design can borrow from <strong>product and behavioral design thinking</strong> — and probably should.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REFLECTION ═══ -->
+<section class="reflection-section">
+  <div class="reflection-inner">
+    <div class="reveal">
+      <div class="section-num">§ 05</div>
+      <div class="section-label">Reflection</div>
+      <h2 class="reflection-title">Failure was <em>the design.</em></h2>
+      <div class="hand-entry">
+        <span class="meta">— Notebook entry, post-V1</span>
+        I keep wanting to call this a "lesson learned" but it really was just <strong>watching every assumption I had about teaching get politely demolished</strong>.
+      </div>
+    </div>
+
+    <div class="reflection-body reveal">
+      <p>This project fundamentally reshaped how I think about learning design. I initially approached ADHD writing challenges with conventional strategies like task breakdown and deadline setting, but quickly realized these methods <strong>failed to translate into actual behavior</strong>.</p>
+
+      <p>Through iteration and feedback, I learned that effective design must align with how users actually function, not how they are expected to function. Shifting toward a dopamine-driven, motivation-based framework allowed me to better address task initiation and sustained focus. I also recognized the importance of <strong>questioning my own assumptions and embracing failure</strong> as part of the design process.</p>
+
+      <p>Ultimately, this project taught me to move beyond instruction and think in terms of <strong>behavioral systems</strong>, where environment, feedback, and motivation play a central role in shaping user outcomes — and where the most "obvious" pedagogical answer is often the one that quietly fails when it leaves the textbook.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NAV ═══ -->
+<section class="proj-nav-section">
+  <a href="project-education-policy.html" class="proj-nav-link">
+    <span class="nav-link-label">← Previous Project</span>
+    <span class="nav-link-title">Education Policy Proposal</span>
+  </a>
+  <a href="project-sit-to-stand.html" class="proj-nav-link next">
+    <span class="nav-link-label">Next Project</span>
+    <span class="nav-link-title">Sit-to-Stand Podium →</span>
+  </a>
+</section>
+
+<footer>
+  <span>© 2026 Jingying Chen · Made with care</span>
+  <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing() { rx += (mx-rx)*.13; ry += (my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='34px'; ring.style.height='34px'; });
+});
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

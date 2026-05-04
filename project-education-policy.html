@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Policy Proposal · Jingying Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ════════════════════════════════════════════
+   EDUCATION POLICY — GOVERNMENT WHITE PAPER
+   ════════════════════════════════════════════ */
+
+:root {
+  --gov-green: #1F3A2E;
+  --gov-green-deep: #102018;
+  --gov-green-mid: #2D4F40;
+  --paper-cream: #F4ECD8;
+  --paper-warm: #EAE0C5;
+  --orange: #FF6B35;
+  --orange-soft: #FFB088;
+  --gov-red: #A8392E;
+  --gov-red-deep: #7A2820;
+  --ink-deep: #161210;
+  --ink-soft: #3A2F26;
+  --muted: #6B5D4F;
+  --line: rgba(31,58,46,0.18);
+}
+
+body {
+  background: var(--paper-cream);
+  color: var(--ink-deep);
+  font-family: 'Crimson Pro', Georgia, serif;
+}
+
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  z-index: 9999; pointer-events: none;
+}
+
+/* nav override */
+nav {
+  background: rgba(244,236,216,0.92) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+.nav-logo { color: var(--gov-green) !important; }
+.nav-links a { color: var(--ink-soft) !important; }
+.nav-links a.active { color: var(--orange) !important; }
+.nav-links a:hover { color: var(--orange) !important; }
+.nav-links a::after { background: var(--orange) !important; }
+
+.cursor { background: var(--orange) !important; }
+.cursor-ring { border-color: var(--orange) !important; }
+
+.back-bar {
+  position: fixed; top: 5rem; left: 4rem; z-index: 400;
+  background: var(--paper-cream);
+  border: 1.5px solid var(--gov-green);
+  border-radius: 0;
+  padding: .5rem 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gov-green);
+  box-shadow: 3px 3px 0 var(--orange);
+  transition: transform .25s, box-shadow .25s;
+  font-weight: 600;
+}
+.back-bar:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--orange); }
+.back-bar::before { content: '← '; }
+
+/* ════ HERO - DOCUMENT COVER PAGE ════ */
+.doc-hero {
+  position: relative;
+  background: var(--paper-cream);
+  padding: 7rem 5rem 4rem;
+  border-bottom: 6px double var(--gov-green);
+}
+
+/* Top file metadata strip */
+.doc-meta-strip {
+  max-width: 1280px; margin: 0 auto 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .8rem 1.2rem;
+  background: var(--gov-green);
+  color: var(--paper-cream);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.doc-meta-strip .l { display: flex; gap: 1.4rem; align-items: center; }
+.doc-meta-strip .file-no {
+  background: var(--paper-cream);
+  color: var(--gov-green);
+  padding: .25rem .7rem;
+  font-weight: 700;
+}
+
+.doc-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.doc-prefix {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+.doc-prefix::before { content: '▌ '; }
+
+.doc-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--gov-green-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.doc-title em { font-style: italic; color: var(--orange); }
+
+.doc-subtitle {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 2rem;
+  padding-left: 1.4rem;
+  border-left: 3px solid var(--orange);
+}
+
+.doc-author-row {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px dashed var(--line);
+}
+.doc-author-block { display: flex; flex-direction: column; gap: .15rem; }
+.aut-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.aut-val {
+  font-family: 'Crimson Pro', serif;
+  font-size: .98rem;
+  color: var(--gov-green-deep);
+  font-weight: 500;
+}
+.aut-val em { font-style: italic; }
+
+.doc-tags {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+}
+.doc-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .1em;
+  padding: .35rem .8rem;
+  background: var(--paper-warm);
+  color: var(--gov-green);
+  border: 1px solid var(--gov-green);
+  font-weight: 500;
+}
+.doc-tag.primary {
+  background: var(--gov-green);
+  color: var(--paper-cream);
+}
+
+/* RIGHT: SUBMITTED TO box with seal */
+.doc-submission {
+  background: var(--paper-warm);
+  border: 2px solid var(--gov-green);
+  padding: 2rem 2.2rem;
+  position: relative;
+}
+.doc-submission::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--gov-green);
+  pointer-events: none;
+}
+.subm-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: .5rem;
+  text-align: center;
+}
+.subm-to {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--gov-green-deep);
+  line-height: 1.2;
+  margin-bottom: .3rem;
+}
+.subm-to em { font-style: italic; color: var(--orange); }
+.subm-detail {
+  font-family: 'Crimson Pro', serif;
+  font-size: .95rem;
+  font-style: italic;
+  text-align: center;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+/* circular government-style seal */
+.doc-seal {
+  width: 120px; height: 120px;
+  margin: 0 auto;
+  border: 2.5px solid var(--gov-red);
+  border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--gov-red);
+  text-align: center;
+  position: relative;
+  transform: rotate(-6deg);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: transparent;
+}
+.doc-seal::before {
+  content: ''; position: absolute;
+  inset: 5px;
+  border: 1px solid var(--gov-red);
+  border-radius: 50%;
+  opacity: .55;
+}
+.seal-top { font-size: .58rem; font-weight: 600; }
+.seal-mid {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 4px 0;
+  letter-spacing: .1em;
+}
+.seal-bot { font-size: .55rem; font-weight: 600; }
+
+/* ════ PROBLEM SECTION - article clauses ════ */
+.problem-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.problem-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  letter-spacing: .2em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: .5rem;
+  padding-left: 28px;
+  position: relative;
+}
+.section-label::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 20px; height: 1.5px;
+  background: var(--orange);
+}
+
+.problem-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--gov-green-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1.4rem;
+}
+.problem-title em { font-style: italic; color: var(--orange); }
+
+.problem-pull {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  padding: 1rem 0 1rem 1.2rem;
+  border-left: 3px solid var(--gov-green);
+}
+
+/* clause list */
+.clause-list {
+  display: flex; flex-direction: column;
+  gap: 0;
+  border-top: 2px solid var(--gov-green);
+  border-bottom: 2px solid var(--gov-green);
+}
+.clause-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: start;
+}
+.clause-item:last-child { border-bottom: none; }
+.clause-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .1em;
+  padding-top: .15rem;
+}
+.clause-num::before { content: '§ '; color: var(--muted); font-weight: 500; }
+.clause-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--gov-green-deep);
+  font-weight: 500;
+}
+.clause-text strong { color: var(--orange); font-weight: 700; }
+
+/* ════ APPROACH - workflow timeline ════ */
+.approach-section {
+  background: var(--gov-green);
+  color: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+.approach-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,107,53,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.approach-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.approach-section .section-label { color: var(--orange-soft); }
+.approach-section .section-label::before { background: var(--orange-soft); }
+
+.approach-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 3rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 2px solid rgba(244,236,216,0.2);
+}
+.approach-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--paper-cream);
+  letter-spacing: -.015em;
+}
+.approach-title em { font-style: italic; color: var(--orange); }
+.approach-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: rgba(244,236,216,0.7);
+  line-height: 1.5;
+}
+
+/* horizontal workflow */
+.workflow {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr 60px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.flow-step {
+  background: var(--gov-green-deep);
+  border: 1.5px solid rgba(244,236,216,0.18);
+  padding: 2rem 1.8rem;
+  position: relative;
+}
+.flow-step .num-large {
+  font-family: 'Crimson Pro', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--orange);
+  line-height: .85;
+  letter-spacing: -.03em;
+  margin-bottom: .8rem;
+}
+.flow-step h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--paper-cream);
+  margin-bottom: .6rem;
+  line-height: 1.2;
+}
+.flow-step h3 em { font-style: italic; color: var(--orange-soft); }
+.flow-step p {
+  font-family: 'Crimson Pro', serif;
+  font-size: .95rem;
+  font-style: italic;
+  color: rgba(244,236,216,0.78);
+  line-height: 1.55;
+  margin-bottom: .6rem;
+}
+.flow-step ul {
+  list-style: none;
+  margin-top: .6rem;
+}
+.flow-step ul li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .05em;
+  color: var(--orange-soft);
+  padding: .35rem 0 .35rem 1rem;
+  position: relative;
+  font-weight: 500;
+}
+.flow-step ul li::before {
+  content: '►';
+  position: absolute; left: 0; top: .35rem;
+  color: var(--orange);
+  font-size: .55rem;
+}
+
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.6rem;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* ════ TESTIMONY - file dossier card ════ */
+.testimony-section {
+  background: var(--paper-warm);
+  padding: 5rem 5rem;
+  position: relative;
+}
+.testimony-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(135deg, transparent 0, transparent 40px, rgba(31,58,46,0.025) 40px, rgba(31,58,46,0.025) 41px);
+  pointer-events: none;
+}
+
+.testimony-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+  align-items: start;
+  position: relative;
+  z-index: 2;
+}
+
+.testimony-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--gov-green-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1.4rem;
+}
+.testimony-title em { font-style: italic; color: var(--orange); }
+
+.test-time-tag {
+  display: inline-flex; align-items: center; gap: .8rem;
+  background: var(--gov-green);
+  color: var(--paper-cream);
+  padding: .8rem 1.4rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 1.2rem;
+}
+.test-time-tag::before { content: '⏱'; font-size: 1.1rem; }
+
+/* file dossier with bullet items */
+.test-dossier {
+  background: var(--paper-cream);
+  border: 2px solid var(--gov-green);
+  padding: 2.5rem 2.6rem 2.5rem 3rem;
+  position: relative;
+}
+.test-dossier::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  width: 70px; height: 70px;
+  background: var(--gov-red);
+  border-radius: 50%;
+  border: 2px solid var(--gov-red-deep);
+  opacity: 0.85;
+}
+.test-dossier::after {
+  content: 'OFFICIAL';
+  position: absolute;
+  top: 2.6rem; right: 1.5rem;
+  width: 70px;
+  text-align: center;
+  color: var(--paper-cream);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  z-index: 2;
+}
+
+.dossier-header {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px dashed var(--line);
+  width: calc(100% - 100px);
+}
+
+.test-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 1rem;
+  counter-reset: testlist;
+}
+.test-list li {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--gov-green-deep);
+  padding-left: 2.2rem;
+  position: relative;
+  counter-increment: testlist;
+}
+.test-list li::before {
+  content: counter(testlist, decimal-leading-zero);
+  position: absolute; left: 0; top: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: .05em;
+}
+.test-list li strong { color: var(--orange); font-weight: 700; }
+
+/* ════ FINDINGS - hearing summary ════ */
+.findings-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.findings-inner { max-width: 1280px; margin: 0 auto; }
+
+.findings-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  padding-bottom: 1.6rem;
+  border-bottom: 2px solid var(--gov-green);
+  margin-bottom: 3rem;
+}
+
+.findings-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--gov-green-deep);
+  letter-spacing: -.015em;
+}
+.findings-title em { font-style: italic; color: var(--orange); }
+.findings-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.finding-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1.6fr;
+  gap: 2.5rem;
+  padding: 2.2rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.finding-row:last-child { border-bottom: none; }
+
+.f-num {
+  font-family: 'Crimson Pro', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--orange);
+  line-height: .85;
+  letter-spacing: -.03em;
+}
+
+.f-headline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--gov-green-deep);
+  letter-spacing: -.01em;
+}
+.f-headline em { font-style: italic; color: var(--orange); }
+
+.f-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: .6rem;
+  font-weight: 600;
+}
+
+.f-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.f-body strong { color: var(--gov-green-deep); font-weight: 600; }
+
+/* ════ RECOMMENDATIONS - article numbered ════ */
+.recs-section {
+  background: var(--gov-green-deep);
+  color: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+.recs-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 0%, rgba(255,107,53,0.12) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.recs-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.recs-section .section-label { color: var(--orange-soft); }
+.recs-section .section-label::before { background: var(--orange-soft); }
+
+.recs-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  padding-bottom: 1.6rem;
+  border-bottom: 2px solid rgba(244,236,216,0.2);
+  margin-bottom: 2.5rem;
+}
+.recs-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--paper-cream);
+  letter-spacing: -.015em;
+}
+.recs-title em { font-style: italic; color: var(--orange); }
+.recs-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: rgba(244,236,216,0.7);
+  line-height: 1.5;
+}
+
+.rec-article {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 2.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(244,236,216,0.15);
+  align-items: start;
+}
+.rec-article:last-child { border-bottom: none; }
+
+.rec-roman {
+  font-family: 'Crimson Pro', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--orange);
+  line-height: 1;
+  letter-spacing: -.03em;
+  text-align: right;
+}
+
+.rec-content h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--paper-cream);
+  margin-bottom: .8rem;
+  line-height: 1.25;
+  letter-spacing: -.005em;
+}
+.rec-content h3 em { font-style: italic; color: var(--orange-soft); }
+
+.rec-content p {
+  font-family: 'Crimson Pro', serif;
+  font-size: .98rem;
+  line-height: 1.65;
+  color: rgba(244,236,216,0.82);
+  margin-bottom: .6rem;
+}
+
+.rec-content .rec-conclusion {
+  display: block;
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--orange-soft);
+  padding-left: 1rem;
+  border-left: 2px solid var(--orange);
+  margin-top: .8rem;
+  line-height: 1.5;
+}
+
+/* ════ REFLECTION - personal annotation ════ */
+.reflection-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem 6rem;
+  position: relative;
+}
+.reflection-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(0deg, transparent 49.5%, rgba(31,58,46,0.04) 50%, transparent 50.5%);
+  background-size: 100% 32px;
+  pointer-events: none;
+  opacity: .8;
+}
+
+.reflection-inner {
+  max-width: 1280px; margin: 0 auto;
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.reflection-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--gov-green-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.reflection-title em { font-style: italic; color: var(--orange); }
+
+/* handwritten note effect */
+.hand-note {
+  background: #FFF5D6;
+  padding: 1.4rem 1.6rem;
+  margin-top: 1.5rem;
+  position: relative;
+  transform: rotate(-1.2deg);
+  box-shadow: 3px 4px 12px rgba(0,0,0,0.12);
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.hand-note::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 30px;
+  width: 70px; height: 18px;
+  background: rgba(255,107,53,0.7);
+  transform: rotate(-2deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.hand-note .meta {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .55rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: .4rem;
+}
+
+.reflection-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  columns: 2;
+  column-gap: 3rem;
+}
+.reflection-body p { margin-bottom: 1rem; break-inside: avoid; }
+.reflection-body p strong { color: var(--gov-green-deep); font-weight: 600; }
+
+/* ════ NAV ════ */
+.proj-nav-section {
+  background: var(--gov-green-deep);
+  color: var(--paper-cream);
+  padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.proj-nav-link {
+  text-decoration: none; color: var(--paper-cream);
+  display: flex; flex-direction: column; gap: .4rem;
+  transition: transform .25s;
+}
+.proj-nav-link:hover { transform: translateY(-3px); }
+.proj-nav-link.next { text-align: right; align-items: flex-end; }
+.nav-link-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+}
+.nav-link-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem; font-style: italic; font-weight: 500;
+}
+
+footer {
+  background: var(--gov-green-deep) !important;
+  color: rgba(244,236,216,0.5) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+footer a { color: rgba(244,236,216,0.7) !important; }
+footer a:hover { color: var(--orange) !important; }
+
+@media (max-width: 1100px) {
+  .back-bar { left: 2rem; top: 4.5rem; }
+  .doc-hero, .problem-section, .approach-section, .testimony-section, .findings-section, .recs-section, .reflection-section { padding: 4rem 2rem; }
+  .doc-content, .problem-inner, .approach-header, .testimony-inner, .findings-header, .recs-header, .reflection-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .workflow { grid-template-columns: 1fr; }
+  .flow-arrow { transform: rotate(90deg); padding: .5rem; }
+  .finding-row, .rec-article { grid-template-columns: 60px 1fr; }
+  .finding-row .f-body { grid-column: 1 / -1; }
+  .reflection-body { columns: 1; }
+  .test-dossier { padding: 2rem 1.5rem; }
+}
+@media (max-width: 700px) {
+  .back-bar { left: 1rem; padding: .4rem .9rem; font-size: .62rem; }
+  .doc-meta-strip { flex-direction: column; gap: .5rem; align-items: start; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jingying</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="experiences.html">Experiences</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<a href="projects.html" class="back-bar">All Projects</a>
+
+<!-- ═══ HERO - DOCUMENT COVER ═══ -->
+<section class="doc-hero">
+  <div class="doc-meta-strip">
+    <div class="l">
+      <span class="file-no">FILE NO. 2025-EDU-03</span>
+      <span>Federal Testimony</span>
+      <span>·</span>
+      <span>ESSA Reform</span>
+    </div>
+    <div>Filed · 2025 · Georgetown LDT</div>
+  </div>
+
+  <div class="doc-content">
+    <div>
+      <div class="doc-prefix">Project 03 · Policy Analysis &amp; Testimony</div>
+      <h1 class="doc-title">Educational <em>Policy Proposal.</em></h1>
+      <p class="doc-subtitle">A federal testimony proposing stronger SEL-focused teacher training and teacher well-being support within ESSA — because how teachers feel shapes how students learn.</p>
+
+      <div class="doc-author-row">
+        <div class="doc-author-block">
+          <span class="aut-key">Author</span>
+          <span class="aut-val">Jingying Chen</span>
+        </div>
+        <div class="doc-author-block">
+          <span class="aut-key">Format</span>
+          <span class="aut-val"><em>5-min Oral Statement</em></span>
+        </div>
+        <div class="doc-author-block">
+          <span class="aut-key">Focus</span>
+          <span class="aut-val">ESSA Title II &amp; IV-A</span>
+        </div>
+        <div class="doc-author-block">
+          <span class="aut-key">Method</span>
+          <span class="aut-val"><em>Research Synthesis · Policy Review</em></span>
+        </div>
+      </div>
+
+      <div class="doc-tags">
+        <span class="doc-tag primary">★ Subject</span>
+        <span class="doc-tag">SEL training</span>
+        <span class="doc-tag">teacher well-being</span>
+        <span class="doc-tag">classroom climate</span>
+        <span class="doc-tag">federal infrastructure</span>
+      </div>
+    </div>
+
+    <div class="doc-submission">
+      <div class="subm-label">★ Submitted To</div>
+      <div class="subm-to">U.S. Senate Committee on <em>HELP</em></div>
+      <div class="subm-detail">Health, Education, Labor &amp; Pensions — Simulated session, 2025</div>
+      <div class="doc-seal">
+        <div class="seal-top">★ TESTIMONY ★</div>
+        <div class="seal-mid">FILED</div>
+        <div class="seal-bot">★ 05 MIN ★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="problem-section">
+  <div class="problem-inner">
+    <div class="reveal">
+      <div class="section-num">§ 01</div>
+      <div class="section-label">The Problem</div>
+      <h2 class="problem-title">Education policy treats emotion <em>as a side note.</em></h2>
+      <p class="problem-pull">"Educational policy often treats emotion as a secondary concern, separate from academic learning. This project argues that emotion is not an 'extra' in education — it is a core part of the learning system."</p>
+    </div>
+
+    <div class="reveal">
+      <ol class="clause-list">
+        <li class="clause-item">
+          <div class="clause-num">1.01</div>
+          <div class="clause-text">Education policy focuses heavily on academic outcomes, but often <strong>ignores emotional conditions</strong> in classrooms.</div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-num">1.02</div>
+          <div class="clause-text">Students' stress, disengagement, and behavioral issues are <strong>increasing</strong> — and traditional fixes are not working.</div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-num">1.03</div>
+          <div class="clause-text">Teachers are expected to manage emotional labor <strong>without structured support</strong> or training.</div>
+        </li>
+        <li class="clause-item">
+          <div class="clause-num">1.04</div>
+          <div class="clause-text">Existing federal policy (ESSA) has the structural space, but <strong>no clear priorities</strong> for emotional learning.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APPROACH - WORKFLOW ═══ -->
+<section class="approach-section">
+  <div class="approach-inner">
+    <div class="approach-header">
+      <div class="reveal">
+        <div class="section-num" style="color: rgba(244,236,216,0.5);">§ 02</div>
+        <div class="section-label">My Approach</div>
+        <h2 class="approach-title">What I <em>actually did.</em></h2>
+      </div>
+      <p class="approach-tagline reveal">Goal: realistic improvements within ESSA — not building a brand new law.</p>
+    </div>
+
+    <div class="workflow reveal">
+      <div class="flow-step">
+        <div class="num-large">01</div>
+        <h3>Literature <em>Review</em></h3>
+        <p>Reviewed peer-reviewed research at the intersection of psychology and education.</p>
+        <ul>
+          <li>Teacher–student relationships</li>
+          <li>Stress and cognition</li>
+          <li>Burnout &amp; classroom climate</li>
+        </ul>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="flow-step">
+        <div class="num-large">02</div>
+        <h3>Policy <em>Analysis</em></h3>
+        <p>Examined ESSA Title II and Title IV-A for entry points to embed reform.</p>
+        <ul>
+          <li>Title II → teacher development</li>
+          <li>Title IV-A → school climate</li>
+          <li>Identified flexibility windows</li>
+        </ul>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="flow-step">
+        <div class="num-large">03</div>
+        <h3>Problem <em>Framing</em></h3>
+        <p>Narrowed a broad topic into one focused policy question.</p>
+        <ul>
+          <li>"How does emotion affect learning?"</li>
+          <li>Gap: "allowed but not required"</li>
+          <li>Result: fragmented SEL across states</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONY ═══ -->
+<section class="testimony-section">
+  <div class="testimony-inner">
+    <div class="reveal">
+      <div class="section-num">§ 03</div>
+      <div class="section-label">The Testimony</div>
+      <h2 class="testimony-title">Speaking before <em>the Committee.</em></h2>
+      <div class="test-time-tag">5-Minute Oral Statement · Simulated</div>
+    </div>
+
+    <div class="test-dossier reveal">
+      <div class="dossier-header">★ Hearing Record · ESSA Reform · Title II &amp; IV-A</div>
+      <ul class="test-list">
+        <li>Delivered a <strong>5-minute oral statement</strong> to a simulated U.S. Senate Committee on Health, Education, Labor, and Pensions.</li>
+        <li>Proposed strengthening <strong>SEL-focused teacher training</strong> within existing ESSA (Title II &amp; Title IV) frameworks.</li>
+        <li>Fielded live questions from <strong>classmates, professors, and industry professionals</strong>.</li>
+        <li>Defended policy feasibility, addressed counterarguments, and clarified use of research evidence.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY FINDINGS ═══ -->
+<section class="findings-section">
+  <div class="findings-inner">
+    <div class="findings-header">
+      <div class="reveal">
+        <div class="section-num">§ 04</div>
+        <div class="section-label">Key Findings</div>
+        <h2 class="findings-title">What the research <em>actually shows.</em></h2>
+      </div>
+      <p class="findings-tagline reveal">Three findings that anchor the policy case — drawn from psychology, neuroscience, and labor economics.</p>
+    </div>
+
+    <div class="finding-row reveal">
+      <div class="f-num">01</div>
+      <div>
+        <h3 class="f-headline">Emotion <em>shapes</em> learning outcomes.</h3>
+        <p class="f-meta">— Finding 04.01 · Developmental Psychology</p>
+      </div>
+      <div class="f-body">
+        When teachers are warm, fair, and responsive, students stay engaged, try harder, and persist through difficulty. <strong>Emotional support is not a "nice extra" — it is part of how learning works.</strong>
+      </div>
+    </div>
+
+    <div class="finding-row reveal">
+      <div class="f-num">02</div>
+      <div>
+        <h3 class="f-headline">Stress <em>interferes</em> with how the brain learns.</h3>
+        <p class="f-meta">— Finding 04.02 · Cognitive Neuroscience</p>
+      </div>
+      <div class="f-body">
+        Stress affects attention, working memory, and self-control — the exact skills needed to listen, solve, and complete tasks. When emotional conditions are poor, learning becomes harder <strong>at a biological level.</strong>
+      </div>
+    </div>
+
+    <div class="finding-row reveal">
+      <div class="f-num">03</div>
+      <div>
+        <h3 class="f-headline">Teacher well-being is <em>a system variable.</em></h3>
+        <p class="f-meta">— Finding 04.03 · Labor &amp; Workforce Research</p>
+      </div>
+      <div class="f-body">
+        Teachers manage instruction, behavior, conflict, and emotional needs — under high stress and financial pressure. <strong>When teachers are exhausted, the entire classroom climate suffers.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECOMMENDATIONS ═══ -->
+<section class="recs-section">
+  <div class="recs-inner">
+    <div class="recs-header">
+      <div class="reveal">
+        <div class="section-num" style="color: rgba(244,236,216,0.5);">§ 05</div>
+        <div class="section-label">Recommendations</div>
+        <h2 class="recs-title">Four articles, <em>all within ESSA.</em></h2>
+      </div>
+      <p class="recs-tagline reveal">No new legislation. Each recommendation works inside the existing framework.</p>
+    </div>
+
+    <div class="rec-article reveal">
+      <div class="rec-roman">I.</div>
+      <div class="rec-content">
+        <h3>Prioritize relationship-building skills in <em>Title II teacher training.</em></h3>
+        <p>Title II already funds professional development, but doesn't explicitly emphasize relational and emotional support skills. Make these competencies — running structured discussions, building communication routines, responding to conflict constructively — a clear training priority.</p>
+        <span class="rec-conclusion">— The goal isn't adding work, but using existing training time more effectively.</span>
+      </div>
+    </div>
+
+    <div class="rec-article reveal">
+      <div class="rec-roman">II.</div>
+      <div class="rec-content">
+        <h3>Shift from one-time workshops to <em>sustained practice.</em></h3>
+        <p>Teachers need ongoing opportunities to practice emotional skills, discuss real classroom challenges, and receive feedback — not just isolated workshops. This can be integrated into existing school meetings without creating new structures.</p>
+        <span class="rec-conclusion">— Teaching emotional skills requires practice, not just information.</span>
+      </div>
+    </div>
+
+    <div class="rec-article reveal">
+      <div class="rec-roman">III.</div>
+      <div class="rec-content">
+        <h3>Use Title IV-A for <em>systemic climate improvement.</em></h3>
+        <p>Title IV-A supports "safe and supportive environments," but is often used for isolated programs. Build school-wide systems that reduce conflict, implement consistent discipline approaches, and focus on relationship repair rather than punishment.</p>
+        <span class="rec-conclusion">— This creates more stable, supportive learning environments.</span>
+      </div>
+    </div>
+
+    <div class="rec-article reveal">
+      <div class="rec-roman">IV.</div>
+      <div class="rec-content">
+        <h3>Treat teacher compensation and well-being as <em>education infrastructure.</em></h3>
+        <p>Teacher well-being is often framed as personal, but it's fundamentally tied to policy decisions about pay, benefits, and workload. When teachers are financially stable and supported, they can sustain the patience and presence that teaching requires.</p>
+        <span class="rec-conclusion">— Teacher well-being isn't a luxury — it's foundational infrastructure for learning.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REFLECTION ═══ -->
+<section class="reflection-section">
+  <div class="reflection-inner">
+    <div class="reveal">
+      <div class="section-num">§ 06</div>
+      <div class="section-label">Reflection</div>
+      <h2 class="reflection-title">What this taught me <em>about policy.</em></h2>
+      <div class="hand-note">
+        <span class="meta">— Personal annotation</span>
+        Writing a Senate testimony was the moment I realized policy isn't about finding the most clever argument. It's about <strong>making feasible recommendations stick</strong>.
+      </div>
+    </div>
+
+    <div class="reflection-body reveal">
+      <p>Writing the issue statement pushed me to synthesize evidence across economics, developmental science, and public policy. I had to move beyond cataloguing studies and build a coherent argument: that ending programs like the Affordable Connectivity Program wasn't saving money — it was deferring larger costs onto vulnerable students and communities.</p>
+
+      <p>The testimony format was also new to me. Translating academic research into a persuasive oral statement for a Senate committee required <strong>anticipating counterarguments</strong>, foregrounding human stakes, and making recommendations realistic within existing frameworks. I chose to argue from within ESSA rather than calling for new legislation, because effective policy often works with existing structures rather than against institutional inertia.</p>
+
+      <p>Writing the personal section reminded me that policy analysis isn't purely technical — it's shaped by lived experience. This project strengthened my ability to <strong>synthesize cross-disciplinary research and communicate findings to non-academic audiences</strong>, and deepened my interest in the intersection of human development and institutional design.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NAV ═══ -->
+<section class="proj-nav-section">
+  <a href="project-anxiety-research.html" class="proj-nav-link">
+    <span class="nav-link-label">← Previous Project</span>
+    <span class="nav-link-title">Anxiety &amp; Bedtime Cognition</span>
+  </a>
+  <a href="project-learning-engagement.html" class="proj-nav-link next">
+    <span class="nav-link-label">Next Project</span>
+    <span class="nav-link-title">ADHD Writing Experience →</span>
+  </a>
+</section>
+
+<footer>
+  <span>© 2026 Jingying Chen · Made with care</span>
+  <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing() { rx += (mx-rx)*.13; ry += (my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='34px'; ring.style.height='34px'; });
+});
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

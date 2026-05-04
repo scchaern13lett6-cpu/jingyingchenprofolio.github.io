@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Influence University · Jingying Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root {
+  --green: #9BC53D;
+  --green-deep: #6F9326;
+  --green-pale: #D8E8AB;
+  --sky: #A8D5E5;
+  --sky-deep: #5C8FA3;
+  --paper: #FAF7EE;
+  --paper-warm: #F0EAD8;
+  --gray: #9CA3A0;
+  --gray-deep: #4A5550;
+  --ink: #1A2018;
+  --ink-soft: #404840;
+  --line: rgba(26,32,24,0.15);
+}
+
+body { background: var(--paper); color: var(--ink); font-family: 'Crimson Pro', Georgia, serif; }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 200px; opacity: 0.07; mix-blend-mode: multiply; z-index: 9999; pointer-events: none;
+}
+
+nav { background: rgba(250,247,238,0.92) !important; border-bottom: 1px solid var(--line) !important; }
+.nav-logo { color: var(--ink) !important; }
+.nav-links a { color: var(--ink-soft) !important; }
+.nav-links a.active, .nav-links a:hover { color: var(--green-deep) !important; }
+.nav-links a::after { background: var(--green-deep) !important; }
+.cursor { background: var(--green-deep) !important; }
+.cursor-ring { border-color: var(--green-deep) !important; }
+
+.back-bar {
+  position: fixed; top: 5rem; left: 4rem; z-index: 400;
+  background: var(--paper); border: 1.5px solid var(--ink); border-radius: 0;
+  padding: .5rem 1.2rem;
+  font-family: 'IBM Plex Mono', monospace; font-size: .68rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  text-decoration: none; color: var(--ink);
+  box-shadow: 3px 3px 0 var(--green); transition: transform .25s, box-shadow .25s;
+  font-weight: 600;
+}
+.back-bar:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--green); }
+.back-bar::before { content: '← '; }
+
+/* shared */
+.section-num { font-family: 'IBM Plex Mono', monospace; font-size: .8rem; letter-spacing: .2em; color: var(--gray); margin-bottom: 1rem; font-weight: 500; }
+.section-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: .7rem; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--green-deep); font-weight: 700;
+  margin-bottom: .5rem; padding-left: 28px; position: relative;
+}
+.section-label::before { content: ''; position: absolute; left: 0; top: 50%; width: 20px; height: 2px; background: var(--green-deep); }
+
+/* ════ HERO — manifesto poster ════ */
+.m-hero {
+  position: relative; padding: 7rem 5rem 5rem;
+  background: var(--paper); overflow: hidden;
+  border-bottom: 6px double var(--ink);
+}
+.m-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 90% 10%, rgba(155,197,61,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 5% 80%, rgba(168,213,229,0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.m-meta-strip {
+  max-width: 1280px; margin: 0 auto 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .8rem 1.2rem; background: var(--ink); color: var(--paper);
+  font-family: 'IBM Plex Mono', monospace; font-size: .65rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  position: relative; z-index: 2;
+}
+.m-meta-strip .l { display: flex; gap: 1.4rem; align-items: center; }
+.m-meta-strip .badge { background: var(--green); color: var(--ink); padding: .25rem .7rem; font-weight: 700; }
+
+.m-hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.m-prefix {
+  font-family: 'IBM Plex Mono', monospace; font-size: .7rem;
+  letter-spacing: .25em; color: var(--green-deep);
+  text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600;
+}
+.m-prefix::before { content: '▌ '; }
+
+/* huge title that breaks the grid */
+.m-title-line1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700; line-height: .9;
+  color: var(--ink); letter-spacing: -.03em;
+  margin-bottom: 0;
+}
+.m-title-line2 {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(4rem, 11vw, 9.5rem);
+  font-weight: 700; font-style: italic;
+  line-height: .85; letter-spacing: -.04em;
+  color: var(--green-deep); margin-top: -.4rem;
+  position: relative; display: inline-block;
+}
+.m-title-line2::after {
+  content: ''; position: absolute;
+  left: 0; right: -4%; bottom: 8px;
+  height: 8px; background: var(--green); opacity: .6; z-index: -1;
+}
+
+.m-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem; font-style: italic; font-weight: 400;
+  line-height: 1.5; color: var(--ink-soft);
+  max-width: 720px; margin: 2rem 0 2rem;
+  padding-left: 1.4rem; border-left: 4px solid var(--green);
+}
+
+.m-bottom-row {
+  display: grid; grid-template-columns: 2fr 1fr;
+  gap: 4rem; align-items: end;
+  padding-top: 2rem; border-top: 2px solid var(--ink);
+}
+.m-meta-grid { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.m-meta-item { display: flex; flex-direction: column; gap: .15rem; }
+.mm-key {
+  font-family: 'IBM Plex Mono', monospace; font-size: .58rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gray); font-weight: 600;
+}
+.mm-val {
+  font-family: 'Crimson Pro', serif; font-size: 1rem;
+  color: var(--ink); font-weight: 500;
+}
+.mm-val em { font-style: italic; color: var(--green-deep); }
+
+.m-link {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: var(--ink); color: var(--paper);
+  padding: 1rem 1.8rem; text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+  letter-spacing: .15em; text-transform: uppercase; font-weight: 700;
+  border: 2px solid var(--ink); transition: all .2s;
+  white-space: nowrap;
+}
+.m-link:hover { background: var(--green); color: var(--ink); border-color: var(--green); }
+.m-link::after { content: ' ↗'; }
+
+/* ════ MANIFESTO BAND — large quote ════ */
+.m-band {
+  background: var(--ink); color: var(--paper);
+  padding: 5rem 5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.m-band::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(155,197,61,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.m-quote {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-style: italic; font-weight: 400;
+  line-height: 1.45; color: var(--paper);
+  max-width: 950px; margin: 0 auto;
+  position: relative; z-index: 2; padding: 0 2rem;
+}
+.m-quote::before, .m-quote::after {
+  font-family: 'Crimson Pro', serif; font-size: 5rem;
+  color: var(--green); position: absolute; line-height: 1;
+}
+.m-quote::before { content: '"'; top: -1rem; left: 0; }
+.m-quote::after { content: '"'; bottom: -2.5rem; right: 0; }
+.m-quote em { color: var(--green); font-weight: 600; }
+
+/* ════ PROBLEM ════ */
+.problem-section { background: var(--paper); padding: 5rem 5rem; }
+.problem-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 2.2fr;
+  gap: 4rem; align-items: start;
+}
+.problem-title {
+  font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500; line-height: 1.05; color: var(--ink);
+  letter-spacing: -.015em; margin-bottom: 1.4rem;
+}
+.problem-title em { font-style: italic; color: var(--green-deep); }
+.problem-pull {
+  font-family: 'Crimson Pro', serif; font-size: 1.1rem;
+  font-style: italic; line-height: 1.55; color: var(--ink-soft);
+  padding: 1rem 0 1rem 1.2rem; border-left: 3px solid var(--green);
+}
+.problem-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2rem; margin-top: 1rem;
+}
+.problem-side h3 {
+  font-family: 'Crimson Pro', serif; font-size: 1.2rem;
+  font-weight: 600; color: var(--ink); margin-bottom: .8rem;
+}
+.problem-side p {
+  font-family: 'Crimson Pro', serif; font-size: 1rem;
+  line-height: 1.7; color: var(--ink-soft);
+}
+.problem-side.contrast {
+  background: var(--green-pale); padding: 1.6rem 1.8rem;
+  border-left: 4px solid var(--green-deep);
+}
+.problem-side.contrast h3 em { color: var(--green-deep); font-style: italic; }
+
+/* ════ FORMULA ════ */
+.formula-section {
+  background: var(--ink); color: var(--paper);
+  padding: 5rem 5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.formula-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 30% 40%, rgba(155,197,61,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 70% 60%, rgba(168,213,229,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.formula-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+.formula-section .section-label { color: var(--green); justify-content: center; }
+.formula-section .section-label::before { background: var(--green); }
+.formula-title {
+  font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500; line-height: 1.05; color: var(--paper);
+  letter-spacing: -.015em; margin-bottom: 1rem;
+}
+.formula-title em { font-style: italic; color: var(--green); }
+.formula-tagline {
+  font-family: 'Crimson Pro', serif; font-size: 1.2rem;
+  font-style: italic; color: rgba(250,247,238,0.7);
+  line-height: 1.5; max-width: 700px; margin: 0 auto;
+}
+
+.formula-display {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: .8rem; margin: 3rem 0;
+}
+.f-term {
+  background: rgba(250,247,238,0.06);
+  border: 1.5px solid rgba(250,247,238,0.2);
+  padding: 1rem 1.4rem;
+  font-family: 'Crimson Pro', serif; font-size: 1.3rem;
+  font-style: italic; color: var(--paper); font-weight: 400;
+}
+.f-term.influence {
+  background: var(--green); color: var(--ink);
+  border-color: var(--green); font-size: 1.5rem;
+  font-weight: 700; box-shadow: 0 0 0 3px rgba(155,197,61,0.3);
+  font-style: normal;
+}
+.f-op { font-family: 'Crimson Pro', serif; font-size: 1.5rem; color: var(--green); }
+.f-anatomy {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; max-width: 900px; margin: 3rem auto 0;
+}
+.a-item {
+  background: rgba(250,247,238,0.04);
+  border: 1px solid rgba(250,247,238,0.12);
+  padding: 1.2rem 1.4rem; text-align: left;
+}
+.a-key {
+  font-family: 'Crimson Pro', serif; font-size: 1.05rem;
+  font-style: italic; color: var(--green);
+  margin-bottom: .3rem; font-weight: 500;
+}
+.a-val {
+  font-family: 'Crimson Pro', serif; font-size: .9rem;
+  line-height: 1.5; color: rgba(250,247,238,0.75);
+}
+
+/* ════ FOUR SCHOOLS — manifesto-style numbered ════ */
+.schools-section { background: var(--paper); padding: 5rem 5rem; position: relative; overflow: hidden; }
+.schools-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(0deg, transparent 49.5%, rgba(155,197,61,0.06) 49.5%, rgba(155,197,61,0.06) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, rgba(155,197,61,0.06) 49.5%, rgba(155,197,61,0.06) 50.5%, transparent 50.5%);
+  background-size: 40px 40px; pointer-events: none;
+}
+.schools-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+.schools-header {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 4rem; align-items: end;
+  padding-bottom: 1.6rem; border-bottom: 2px solid var(--ink);
+  margin-bottom: 3rem;
+}
+.schools-title {
+  font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500; line-height: 1.05; color: var(--ink);
+  letter-spacing: -.015em;
+}
+.schools-title em { font-style: italic; color: var(--green-deep); }
+.schools-tagline {
+  font-family: 'Caveat', cursive; font-size: 1.5rem;
+  color: var(--green-deep); line-height: 1.4;
+}
+
+/* 2x2 card grid - asymmetric sizes */
+.schools-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+}
+
+.school-card {
+  padding: 2.4rem 2.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s;
+}
+.school-card:hover { transform: translateY(-4px); }
+
+/* alternating color blocks */
+.school-card.s1 { background: var(--ink); color: var(--paper); grid-column: 1; }
+.school-card.s2 { background: var(--green-pale); color: var(--ink); grid-column: 2; }
+.school-card.s3 { background: var(--sky); color: var(--ink); grid-column: 1; }
+.school-card.s4 { background: var(--green-deep); color: var(--paper); grid-column: 2; }
+
+.school-card .bg-num {
+  position: absolute;
+  bottom: -20px; right: 10px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 9rem; font-weight: 700; font-style: italic;
+  line-height: 1; letter-spacing: -.05em;
+  opacity: .08; pointer-events: none;
+  color: inherit;
+}
+
+.school-emoji {
+  font-size: 2.5rem; margin-bottom: 1rem; display: block;
+}
+
+.school-card h3 {
+  font-family: 'Crimson Pro', serif; font-size: 1.5rem;
+  font-weight: 500; margin-bottom: .8rem; line-height: 1.2;
+}
+.school-card.s1 h3 em, .school-card.s4 h3 em { color: var(--green); font-style: italic; }
+.school-card.s2 h3 em, .school-card.s3 h3 em { color: var(--green-deep); font-style: italic; }
+
+.school-card p {
+  font-family: 'Crimson Pro', serif; font-size: 1rem;
+  line-height: 1.65; opacity: .88;
+}
+
+.school-card .school-tag {
+  display: inline-block; margin-top: 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .2em;
+  font-weight: 700; text-transform: uppercase;
+  padding: .4rem .9rem;
+}
+.school-card.s1 .school-tag { background: var(--green); color: var(--ink); }
+.school-card.s2 .school-tag { background: var(--ink); color: var(--paper); }
+.school-card.s3 .school-tag { background: var(--green-deep); color: white; }
+.school-card.s4 .school-tag { background: var(--sky); color: var(--ink); }
+
+/* ════ SUSTAIN BAND — angled banner ════ */
+.sustain-section {
+  background: var(--sky); padding: 4rem 5rem;
+  position: relative; overflow: hidden;
+}
+.sustain-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(45deg, transparent 0, transparent 40px, rgba(26,32,24,0.04) 40px, rgba(26,32,24,0.04) 41px);
+  pointer-events: none;
+}
+.sustain-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 3rem; align-items: center;
+  position: relative; z-index: 2;
+}
+.sustain-icon {
+  width: 100px; height: 100px;
+  background: var(--paper); border: 2px dashed var(--gray-deep);
+  border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 2.8rem;
+}
+.sustain-text h3 {
+  font-family: 'Crimson Pro', serif; font-size: 1.8rem;
+  font-weight: 500; color: var(--ink); margin-bottom: .8rem;
+}
+.sustain-text h3 em { color: var(--green-deep); font-style: italic; }
+.sustain-text p {
+  font-family: 'Crimson Pro', serif; font-size: 1.05rem;
+  line-height: 1.7; color: var(--ink-soft);
+}
+.sustain-text p strong { color: var(--ink); font-weight: 700; }
+
+/* ════ LEARNING MODEL ════ */
+.model-section { background: var(--paper); padding: 5rem 5rem; }
+.model-inner { max-width: 1280px; margin: 0 auto; }
+.model-header { margin-bottom: 3rem; padding-bottom: 1.6rem; border-bottom: 2px solid var(--ink); }
+.model-title {
+  font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500; line-height: 1.05; color: var(--ink);
+  letter-spacing: -.015em;
+}
+.model-title em { font-style: italic; color: var(--green-deep); }
+.model-intro {
+  font-family: 'Crimson Pro', serif; font-size: 1.05rem;
+  line-height: 1.7; color: var(--ink-soft);
+  max-width: 800px; margin-top: 1.2rem;
+}
+.model-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+.model-card {
+  background: var(--paper-warm); padding: 2rem 2.2rem;
+  border-left: 4px solid var(--green-deep);
+  position: relative;
+}
+.model-card .label-tag {
+  display: inline-block; font-family: 'IBM Plex Mono', monospace;
+  font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+  padding: .35rem .8rem; margin-bottom: 1rem;
+  background: var(--ink); color: var(--paper); font-weight: 700;
+}
+.model-card h3 {
+  font-family: 'Crimson Pro', serif; font-size: 1.4rem;
+  font-weight: 500; color: var(--ink); margin-bottom: .8rem; line-height: 1.25;
+}
+.model-card h3 em { color: var(--green-deep); font-style: italic; }
+.model-card p {
+  font-family: 'Crimson Pro', serif; font-size: 1rem;
+  line-height: 1.7; color: var(--ink-soft);
+}
+.model-card p strong { color: var(--green-deep); font-weight: 700; }
+
+/* ════ ETHICS REFLECTION ════ */
+.ethics-section { background: var(--ink); color: var(--paper); padding: 5rem 5rem; position: relative; overflow: hidden; }
+.ethics-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(155,197,61,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.ethics-inner {
+  max-width: 1280px; margin: 0 auto;
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start;
+}
+.ethics-section .section-label { color: var(--green); }
+.ethics-section .section-label::before { background: var(--green); }
+.ethics-title {
+  font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500; line-height: 1.05; color: var(--paper);
+  letter-spacing: -.015em; margin-bottom: 1rem;
+}
+.ethics-title em { font-style: italic; color: var(--green); }
+.ethics-pull {
+  font-family: 'Crimson Pro', serif; font-size: 1.3rem;
+  font-style: italic; line-height: 1.7;
+  color: rgba(250,247,238,0.95); margin-bottom: 1.5rem;
+  padding-left: 2.5rem; position: relative;
+}
+.ethics-pull::before {
+  content: '"'; position: absolute; left: 0; top: -1.5rem;
+  font-family: 'Crimson Pro', serif; font-size: 5rem;
+  color: var(--green); line-height: 1; opacity: .6;
+}
+.ethics-body {
+  font-family: 'Crimson Pro', serif; font-size: 1.05rem;
+  line-height: 1.8; color: rgba(250,247,238,0.82);
+  columns: 2; column-gap: 3rem;
+}
+.ethics-body p { margin-bottom: 1rem; break-inside: avoid; }
+.ethics-body p strong { color: var(--green); font-weight: 600; }
+
+/* ════ NAV + FOOTER ════ */
+.proj-nav-section {
+  background: var(--paper-warm); padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.proj-nav-link {
+  text-decoration: none; color: var(--ink);
+  display: flex; flex-direction: column; gap: .4rem;
+  transition: transform .25s;
+}
+.proj-nav-link:hover { transform: translateY(-3px); }
+.proj-nav-link.next { text-align: right; align-items: flex-end; }
+.nav-link-label { font-family: 'IBM Plex Mono', monospace; font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--green-deep); font-weight: 700; }
+.nav-link-title { font-family: 'Crimson Pro', serif; font-size: 1.4rem; font-style: italic; font-weight: 500; }
+
+footer { background: var(--ink) !important; color: rgba(250,247,238,0.5) !important; font-family: 'IBM Plex Mono', monospace !important; }
+footer a { color: rgba(250,247,238,0.7) !important; }
+footer a:hover { color: var(--green) !important; }
+
+@media (max-width: 1100px) {
+  .back-bar { left: 2rem; top: 4.5rem; }
+  .m-hero, .m-band, .problem-section, .formula-section, .schools-section, .sustain-section, .model-section, .ethics-section, .proj-nav-section { padding: 4rem 2rem; }
+  .problem-inner, .schools-header, .ethics-inner, .m-bottom-row { grid-template-columns: 1fr; gap: 2.5rem; }
+  .problem-grid, .model-cards { grid-template-columns: 1fr; }
+  .formula-display { gap: .4rem; }
+  .f-term { font-size: 1rem; padding: .7rem .9rem; }
+  .f-term.influence { font-size: 1.2rem; }
+  .f-anatomy { grid-template-columns: 1fr; }
+  .schools-grid { grid-template-columns: 1fr; }
+  .school-card { grid-column: 1 !important; }
+  .sustain-inner { grid-template-columns: 1fr; text-align: center; }
+  .sustain-icon { margin: 0 auto; }
+  .ethics-body { columns: 1; }
+}
+@media (max-width: 700px) {
+  .back-bar { left: 1rem; padding: .4rem .9rem; font-size: .62rem; }
+  .m-meta-strip { flex-direction: column; gap: .5rem; align-items: start; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jingying</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="experiences.html">Experiences</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<a href="projects.html" class="back-bar">All Projects</a>
+
+<!-- ═══ HERO MANIFESTO ═══ -->
+<section class="m-hero">
+  <div class="m-meta-strip">
+    <div class="l">
+      <span class="badge">★ MANIFESTO 06/06</span>
+      <span>Curriculum Concept</span>
+      <span>·</span>
+      <span>System Design</span>
+    </div>
+    <div>Filed · 2025 · Group Project</div>
+  </div>
+
+  <div class="m-hero-inner">
+    <div class="m-prefix">Project 06 · Educational System Design</div>
+    <div>
+      <div class="m-title-line1">Influence</div>
+      <div class="m-title-line2">University.</div>
+    </div>
+    <p class="m-tagline">A university designed around one question — what would education look like if "<em>moving people</em>" was treated as a core human competency, not a marketing skill?</p>
+
+    <div class="m-bottom-row">
+      <div class="m-meta-grid">
+        <div class="m-meta-item">
+          <span class="mm-key">Type</span>
+          <span class="mm-val"><em>Group Concept</em></span>
+        </div>
+        <div class="m-meta-item">
+          <span class="mm-key">Collaborators</span>
+          <span class="mm-val">Angelica · Apoorva · Hernan</span>
+        </div>
+        <div class="m-meta-item">
+          <span class="mm-key">Focus</span>
+          <span class="mm-val"><em>Influence · Ethics · Systems</em></span>
+        </div>
+      </div>
+      <a href="https://influenceuniversity.my.canva.site/" target="_blank" class="m-link">View Full Concept</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MANIFESTO QUOTE ═══ -->
+<section class="m-band">
+  <p class="m-quote">Whether you realize it or not, everyone is silently shaping the lives of others. <em>True influence isn't measured by numbers or followers</em> — it's the power to transform hearts and minds.</p>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="problem-section">
+  <div class="problem-inner">
+    <div class="reveal">
+      <div class="section-num">§ 01</div>
+      <div class="section-label">The Problem</div>
+      <h2 class="problem-title">"Why do I feel <em>so unprepared?"</em></h2>
+      <p class="problem-pull">Influence is everywhere — yet almost nowhere taught deliberately. Most people learn it by trial, error, and accident.</p>
+    </div>
+
+    <div class="reveal">
+      <p style="font-family: 'Crimson Pro', serif; font-size: 1rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1rem;">Every person, every day, is shaping the people around them — through how they speak, what they create, and how they show up. Yet <strong style="color: var(--green-deep); font-weight: 700;">traditional universities almost never teach this deliberately</strong>. At the same time, entrepreneurs, brand founders, and content creators depend on influence to survive.</p>
+
+      <div class="problem-grid">
+        <div class="problem-side">
+          <h3>Traditional Higher Ed teaches knowledge.</h3>
+          <p>Theory, discipline, content. Students leave with what to think, but rarely with the capacity to <em>move people</em> — to persuade, to mobilize, to actually shift outcomes in the world.</p>
+        </div>
+        <div class="problem-side contrast">
+          <h3>But influence <em>is</em> the skill.</h3>
+          <p>For entrepreneurs, creators, and advocates, the ability to connect, persuade, and genuinely move people determines whose ideas survive. <strong>What if we taught it on purpose?</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FORMULA ═══ -->
+<section class="formula-section">
+  <div class="formula-inner">
+    <div class="reveal">
+      <div class="section-num" style="color: rgba(250,247,238,0.5);">§ 02</div>
+      <div class="section-label">The Anatomy</div>
+      <h2 class="formula-title">Influence, <em>broken open.</em></h2>
+      <p class="formula-tagline">Influence is not reach. It is not exposure. It is the capacity to change how someone thinks, feels, or acts — honestly.</p>
+    </div>
+
+    <div class="formula-display reveal">
+      <span class="f-term influence">Influence</span>
+      <span class="f-op">=</span>
+      <span class="f-term">Content</span>
+      <span class="f-op">×</span>
+      <span class="f-term">Psychology</span>
+      <span class="f-op">×</span>
+      <span class="f-term">Channel</span>
+      <span class="f-op">×</span>
+      <span class="f-term">Data</span>
+      <span class="f-op">×</span>
+      <span class="f-term">Ethics</span>
+    </div>
+
+    <div class="f-anatomy reveal">
+      <div class="a-item"><div class="a-key">Media</div><div class="a-val">How ideas travel</div></div>
+      <div class="a-item"><div class="a-key">Psychology</div><div class="a-val">Why people change their minds</div></div>
+      <div class="a-item"><div class="a-key">Marketing</div><div class="a-val">How to build systems of persuasion</div></div>
+      <div class="a-item"><div class="a-key">Storytelling</div><div class="a-val">How to make people feel something</div></div>
+      <div class="a-item"><div class="a-key">Data</div><div class="a-val">How to measure what actually shifted</div></div>
+      <div class="a-item"><div class="a-key">Ethics</div><div class="a-val">How to do all of this responsibly</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOUR SCHOOLS ═══ -->
+<section class="schools-section">
+  <div class="schools-inner">
+    <div class="schools-header">
+      <div class="reveal">
+        <div class="section-num">§ 03</div>
+        <div class="section-label">The Four Schools</div>
+        <h2 class="schools-title">A university built around <em>moving people.</em></h2>
+      </div>
+      <p class="schools-tagline reveal">Four schools, one shared capacity — influence.</p>
+    </div>
+
+    <div class="schools-grid reveal">
+      <div class="school-card s1">
+        <span class="school-emoji">🎨</span>
+        <h3>School of <em>Creative &amp; Cultural Influence</em></h3>
+        <p>Storytelling, design, brand-building, and narrative as instruments of cultural change. Where creators learn to move people through what they make.</p>
+        <span class="school-tag">★ Create</span>
+        <div class="bg-num">01</div>
+      </div>
+      <div class="school-card s2">
+        <span class="school-emoji">🧠</span>
+        <h3>School of <em>Persuasion &amp; Behavior</em></h3>
+        <p>Psychology of decision-making, applied behavioral science, and ethical persuasion. Understanding why people change — and don't.</p>
+        <span class="school-tag">★ Understand</span>
+        <div class="bg-num">02</div>
+      </div>
+      <div class="school-card s3">
+        <span class="school-emoji">📡</span>
+        <h3>School of <em>Media &amp; Channels</em></h3>
+        <p>How ideas travel through systems. Platforms, audiences, distribution — building reach that actually lands.</p>
+        <span class="school-tag">★ Distribute</span>
+        <div class="bg-num">03</div>
+      </div>
+      <div class="school-card s4">
+        <span class="school-emoji">⚖️</span>
+        <h3>School of <em>Civic &amp; Ethical Influence</em></h3>
+        <p>Advocacy, mobilization, public discourse, and the ethics of moving large groups of people. Power, with responsibility built in.</p>
+        <span class="school-tag">★ Govern</span>
+        <div class="bg-num">04</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SUSTAINABILITY BAND ═══ -->
+<section class="sustain-section">
+  <div class="sustain-inner reveal">
+    <div class="sustain-icon">🌱</div>
+    <div class="sustain-text">
+      <h3>Our Sustainability <em>Commitment.</em></h3>
+      <p>Sustainability is not an afterthought. <strong>Every decision we make</strong> — from campus design to brand partnerships — is held to an environmental standard. Influence with integrity means accountability to the systems we operate within.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LEARNING MODEL ═══ -->
+<section class="model-section">
+  <div class="model-inner">
+    <div class="model-header reveal">
+      <div class="section-num">§ 04</div>
+      <div class="section-label">The Learning Model</div>
+      <h2 class="model-title">No more separating <em>learning from doing.</em></h2>
+      <p class="model-intro">Students at Influence University work on real campaigns with real clients <strong style="color: var(--green-deep); font-weight: 700;">from day one</strong>. They fail publicly, iterate quickly, and graduate with a portfolio of documented outcomes — not a transcript of completed courses.</p>
+    </div>
+
+    <div class="model-cards">
+      <div class="model-card reveal">
+        <span class="label-tag">★ Decision · 01</span>
+        <h3>City as <em>Classroom.</em></h3>
+        <p>Cafés, museums, and public spaces become learning environments. Knowledge is not separated from the world it is meant to affect. The curriculum bleeds into the city, and the city teaches back.</p>
+      </div>
+      <div class="model-card reveal">
+        <span class="label-tag">★ Decision · 02</span>
+        <h3>Influence-first, <em>not Discipline-first.</em></h3>
+        <p>Students learn how to <strong>move people</strong> before they choose a field — then take that capacity into architecture, fashion, policy, or wherever they go. The skill travels; the field is just the vehicle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ETHICS REFLECTION ═══ -->
+<section class="ethics-section">
+  <div class="ethics-inner">
+    <div class="reveal">
+      <div class="section-num" style="color: rgba(250,247,238,0.5);">§ 05</div>
+      <div class="section-label">Reflection · The Hardest Problem</div>
+      <h2 class="ethics-title">It wasn't the <em>curriculum.</em></h2>
+      <p class="ethics-pull">The hardest design problem in this project was not the curriculum structure or the learning model. It was the ethics.</p>
+    </div>
+
+    <div class="ethics-body reveal">
+      <p>Teaching influence systematically <strong>carries real risk</strong>. The line between persuasion and manipulation is not always clear, and a university built around influence could easily produce people who are very effective at moving others — without caring where they move them to.</p>
+      <p>Every design decision had to hold two things at once: <strong>how to be effective, and how to remain honest</strong>. How to build capacity, and how to build responsibility alongside it.</p>
+      <p>I also learned that designing an educational system requires thinking at multiple levels at once — from philosophy down to daily schedule, from curriculum to physical space. <strong>This project taught me what systems thinking actually feels like in practice.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NAV ═══ -->
+<section class="proj-nav-section">
+  <a href="project-sit-to-stand.html" class="proj-nav-link">
+    <span class="nav-link-label">← Previous Project</span>
+    <span class="nav-link-title">Sit-to-Stand Podium</span>
+  </a>
+  <a href="projects.html" class="proj-nav-link next">
+    <span class="nav-link-label">Back to</span>
+    <span class="nav-link-title">All Projects</span>
+  </a>
+</section>
+
+<footer>
+  <span>© 2026 Jingying Chen · Made with care</span>
+  <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing() { rx += (mx-rx)*.13; ry += (my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='34px'; ring.style.height='34px'; });
+});
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

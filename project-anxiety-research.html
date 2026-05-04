@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anxiety &amp; Bedtime Cognition · Jingying Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ════════════════════════════════════════════
+   ANXIETY RESEARCH - ACADEMIC JOURNAL STYLE
+   ════════════════════════════════════════════ */
+
+:root {
+  --indigo: #1B2845;
+  --indigo-deep: #0D1428;
+  --indigo-mid: #2A3759;
+  --paper-cream: #F5F0E5;
+  --paper-warm: #EDE5D2;
+  --rule-orange: #FF6B35;
+  --rule-orange-soft: #FFB088;
+  --highlight-purple: #9B7EB8;
+  --highlight-purple-soft: #C0A8D4;
+  --ink-deep: #1A1410;
+  --ink-soft: #4A3A2E;
+  --muted: #6B5D4F;
+  --line: rgba(27,40,69,0.18);
+}
+
+body {
+  background: var(--paper-cream);
+  color: var(--ink-deep);
+  font-family: 'Crimson Pro', Georgia, serif;
+}
+
+/* paper texture */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  z-index: 9999; pointer-events: none;
+}
+
+/* nav override */
+nav {
+  background: rgba(245,240,229,0.92) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+.nav-logo { color: var(--indigo) !important; }
+.nav-links a { color: var(--ink-soft) !important; }
+.nav-links a.active { color: var(--rule-orange) !important; }
+.nav-links a:hover { color: var(--rule-orange) !important; }
+.nav-links a::after { background: var(--rule-orange) !important; }
+
+.cursor { background: var(--rule-orange) !important; }
+.cursor-ring { border-color: var(--rule-orange) !important; }
+
+.back-bar {
+  position: fixed; top: 6.5rem; left: 4rem; z-index: 400;
+  background: var(--paper-cream);
+  border: 1.5px solid var(--indigo);
+  border-radius: 0;
+  padding: .5rem 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--indigo);
+  box-shadow: 3px 3px 0 var(--rule-orange);
+  transition: transform .25s, box-shadow .25s;
+  font-weight: 600;
+}
+.back-bar:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--rule-orange); }
+.back-bar::before { content: '← '; }
+
+/* ════ HERO - JOURNAL TITLE PAGE ════ */
+.journal-hero {
+  position: relative;
+  background: var(--paper-cream);
+  padding: 8.5rem 5rem 4rem;
+  border-bottom: 6px double var(--indigo);
+}
+
+.journal-header {
+  max-width: 1280px;
+  margin: 0 auto 2rem;
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--indigo);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--indigo);
+  font-weight: 500;
+}
+.journal-header .left { display: flex; gap: 1.5rem; align-items: center; }
+.journal-header .stamp {
+  background: var(--indigo);
+  color: var(--paper-cream);
+  padding: .25rem .6rem;
+  letter-spacing: .15em;
+}
+.journal-header .right { color: var(--muted); }
+
+.journal-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.journal-meta-line {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .25em;
+  color: var(--rule-orange);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+.journal-meta-line::before { content: '▌ '; }
+
+.journal-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--indigo-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.journal-title em { font-style: italic; color: var(--rule-orange); }
+
+.journal-subtitle {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 2rem;
+  padding-left: 1.4rem;
+  border-left: 3px solid var(--rule-orange);
+}
+
+.journal-author-row {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px dashed var(--line);
+}
+.journal-author-block {
+  display: flex; flex-direction: column; gap: .15rem;
+}
+.aut-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.aut-val {
+  font-family: 'Crimson Pro', serif;
+  font-size: .98rem;
+  color: var(--indigo-deep);
+  font-weight: 500;
+}
+.aut-val em { font-style: italic; }
+
+.keywords-row {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+}
+.keyword {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .1em;
+  padding: .35rem .8rem;
+  background: var(--paper-warm);
+  color: var(--indigo);
+  border: 1px solid var(--indigo);
+  font-weight: 500;
+}
+.keyword.primary {
+  background: var(--indigo);
+  color: var(--paper-cream);
+}
+
+/* RIGHT: Abstract Box */
+.abstract-box {
+  background: var(--indigo);
+  color: var(--paper-cream);
+  padding: 2rem 2.2rem;
+  position: relative;
+}
+.abstract-box::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(245,240,229,0.18);
+  pointer-events: none;
+}
+.abstract-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--rule-orange);
+  font-weight: 600;
+  margin-bottom: .8rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(245,240,229,0.25);
+}
+.abstract-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: .95rem;
+  line-height: 1.65;
+  color: rgba(245,240,229,0.92);
+  font-style: italic;
+}
+.abstract-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed rgba(245,240,229,0.2);
+}
+.abs-stat {
+  font-family: 'IBM Plex Mono', monospace;
+}
+.abs-stat .num {
+  font-size: 1.6rem;
+  color: var(--rule-orange);
+  display: block;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.abs-stat .lab {
+  font-size: .58rem;
+  letter-spacing: .15em;
+  color: rgba(245,240,229,0.65);
+  text-transform: uppercase;
+  margin-top: .2rem;
+}
+
+/* ════ BACKGROUND - opening question ════ */
+.bg-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.bg-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--rule-orange);
+  font-weight: 600;
+  margin-bottom: .5rem;
+  padding-left: 28px;
+  position: relative;
+}
+.section-label::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 20px; height: 1.5px;
+  background: var(--rule-orange);
+}
+
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  letter-spacing: .2em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.bg-question {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--indigo-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1rem;
+}
+.bg-question em { font-style: italic; color: var(--rule-orange); }
+
+.bg-q-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .15em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.bg-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.bg-body p { margin-bottom: 1rem; }
+.bg-body p strong { color: var(--rule-orange); font-weight: 600; }
+.bg-body p:first-child::first-letter {
+  font-family: 'Crimson Pro', serif;
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: var(--indigo);
+  float: left;
+  line-height: .85;
+  margin: .25rem .5rem -.2rem 0;
+}
+
+/* ════ METHODS - data spec sheet ════ */
+.methods-section {
+  background: var(--indigo);
+  color: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.methods-inner { max-width: 1280px; margin: 0 auto; }
+
+.methods-section .section-label {
+  color: var(--highlight-purple);
+}
+.methods-section .section-label::before {
+  background: var(--highlight-purple);
+}
+
+.methods-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid rgba(245,240,229,0.2);
+  margin-bottom: 2.5rem;
+}
+
+.methods-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--paper-cream);
+  letter-spacing: -.015em;
+}
+.methods-title em { font-style: italic; color: var(--highlight-purple); }
+
+.methods-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: rgba(245,240,229,0.7);
+  line-height: 1.5;
+}
+
+/* big stats banner */
+.stats-banner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 2.5rem;
+  border-top: 1px solid rgba(245,240,229,0.2);
+  border-bottom: 1px solid rgba(245,240,229,0.2);
+}
+.stat-bar {
+  padding: 1.6rem 1.4rem;
+  border-right: 1px solid rgba(245,240,229,0.18);
+  display: flex; flex-direction: column; gap: .4rem;
+}
+.stat-bar:last-child { border-right: none; }
+.stat-bar .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 2.6rem;
+  font-weight: 500;
+  color: var(--rule-orange);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.stat-bar .num.small { font-size: 1.6rem; }
+.stat-bar .lab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .2em;
+  color: rgba(245,240,229,0.65);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.stat-bar .desc {
+  font-family: 'Crimson Pro', serif;
+  font-size: .85rem;
+  font-style: italic;
+  color: rgba(245,240,229,0.85);
+  line-height: 1.4;
+  margin-top: .3rem;
+}
+
+/* methods detail - 2 columns */
+.methods-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.method-block h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--highlight-purple);
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid rgba(245,240,229,0.25);
+  font-weight: 600;
+}
+.method-block ul {
+  list-style: none;
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.method-block li {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(245,240,229,0.88);
+  padding-left: 1.4rem;
+  position: relative;
+}
+.method-block li::before {
+  content: '►';
+  position: absolute; left: 0; top: 0;
+  color: var(--rule-orange);
+  font-size: .65rem;
+  font-family: monospace;
+  top: 4px;
+}
+.method-block li strong { color: var(--paper-cream); font-weight: 600; }
+
+/* ════ FINDINGS - results section ════ */
+.findings-section {
+  background: var(--paper-warm);
+  padding: 5rem 5rem;
+  position: relative;
+}
+
+.findings-inner { max-width: 1280px; margin: 0 auto; }
+
+.findings-header {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--indigo);
+}
+
+.findings-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--indigo-deep);
+  letter-spacing: -.015em;
+}
+.findings-title em { font-style: italic; color: var(--rule-orange); }
+
+.findings-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* finding rows - editorial article-like */
+.finding-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1.4fr;
+  gap: 2.5rem;
+  padding: 2.2rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.finding-row:last-child { border-bottom: none; }
+
+.f-num {
+  font-family: 'Crimson Pro', serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--rule-orange);
+  line-height: .85;
+  letter-spacing: -.03em;
+}
+
+.f-headline {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--indigo-deep);
+  letter-spacing: -.01em;
+}
+.f-headline em { font-style: italic; color: var(--rule-orange); }
+
+.f-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: .8rem;
+  font-weight: 600;
+}
+
+.f-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.f-body p { margin-bottom: .8rem; }
+.f-body p strong { color: var(--indigo-deep); font-weight: 600; }
+
+.f-stat-chip {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .75rem;
+  background: var(--indigo);
+  color: var(--paper-cream);
+  padding: .5rem .9rem;
+  margin-top: .6rem;
+  letter-spacing: .03em;
+  font-weight: 500;
+}
+
+/* ════ MEANING - dark callout ════ */
+.meaning-section {
+  background: var(--indigo-deep);
+  color: var(--paper-cream);
+  padding: 5rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.meaning-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 25% 50%, rgba(255,107,53,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 75% 50%, rgba(155,126,184,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.meaning-inner {
+  max-width: 1100px; margin: 0 auto;
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+}
+
+.meaning-section .section-label { color: var(--highlight-purple); }
+.meaning-section .section-label::before { background: var(--highlight-purple); }
+
+.meaning-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--paper-cream);
+  letter-spacing: -.015em;
+  margin-bottom: 0;
+}
+.meaning-title em { font-style: italic; color: var(--rule-orange); }
+
+.meaning-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(245,240,229,0.85);
+  font-style: italic;
+}
+.meaning-body p { margin-bottom: 1rem; }
+.meaning-body p strong {
+  font-style: normal;
+  color: var(--paper-cream);
+  font-weight: 600;
+  background: rgba(155,126,184,0.18);
+  padding: 0 .25rem;
+}
+
+/* ════ REFLECTION - lab notebook style ════ */
+.reflection-section {
+  background: var(--paper-cream);
+  padding: 5rem 5rem 6rem;
+  position: relative;
+}
+.reflection-section::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(0deg, transparent 49.5%, rgba(27,40,69,0.04) 50%, transparent 50.5%);
+  background-size: 100% 32px;
+  pointer-events: none;
+  opacity: .8;
+}
+
+.reflection-inner {
+  max-width: 1280px; margin: 0 auto;
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.reflection-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--indigo-deep);
+  letter-spacing: -.015em;
+  margin-bottom: 1.5rem;
+}
+.reflection-title em { font-style: italic; color: var(--rule-orange); }
+
+.reflection-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+.reflection-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  columns: 2;
+  column-gap: 3rem;
+}
+.reflection-body p { margin-bottom: 1rem; break-inside: avoid; }
+.reflection-body p strong { color: var(--indigo-deep); font-weight: 600; }
+
+/* ════ NAV ════ */
+.proj-nav-section {
+  background: var(--indigo-deep);
+  color: var(--paper-cream);
+  padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.proj-nav-link {
+  text-decoration: none; color: var(--paper-cream);
+  display: flex; flex-direction: column; gap: .4rem;
+  transition: transform .25s;
+}
+.proj-nav-link:hover { transform: translateY(-3px); }
+.proj-nav-link.next { text-align: right; align-items: flex-end; }
+.nav-link-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--rule-orange);
+  font-weight: 600;
+}
+.nav-link-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.4rem; font-style: italic; font-weight: 500;
+}
+
+footer {
+  background: var(--indigo-deep) !important;
+  color: rgba(245,240,229,0.5) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+footer a { color: rgba(245,240,229,0.7) !important; }
+footer a:hover { color: var(--rule-orange) !important; }
+
+@media (max-width: 1100px) {
+  .back-bar { left: 2rem; top: 4.5rem; }
+  .journal-hero, .bg-section, .methods-section, .findings-section, .meaning-section, .reflection-section { padding: 4rem 2rem; }
+  .journal-content, .bg-inner, .methods-header, .findings-header, .meaning-inner, .reflection-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .stats-banner { grid-template-columns: 1fr 1fr; }
+  .stat-bar:nth-child(2) { border-right: none; }
+  .stat-bar:nth-child(1), .stat-bar:nth-child(2) { border-bottom: 1px solid rgba(245,240,229,0.18); }
+  .methods-grid { grid-template-columns: 1fr; }
+  .finding-row { grid-template-columns: 60px 1fr; }
+  .finding-row .f-body { grid-column: 1 / -1; }
+  .reflection-body { columns: 1; }
+}
+@media (max-width: 700px) {
+  .back-bar { left: 1rem; padding: .4rem .9rem; font-size: .62rem; }
+  .stats-banner { grid-template-columns: 1fr; }
+  .stat-bar { border-right: none; border-bottom: 1px solid rgba(245,240,229,0.18); }
+  .stat-bar:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jingying</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="experiences.html">Experiences</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<a href="projects.html" class="back-bar">All Projects</a>
+
+<!-- ═══ JOURNAL HEADER + TITLE PAGE ═══ -->
+<section class="journal-hero">
+  <div class="journal-header">
+    <div class="left">
+      <span class="stamp">Vol. 02 / 2025</span>
+      <span>Quantitative Research</span>
+      <span>·</span>
+      <span>Independent Study</span>
+    </div>
+    <div class="right">Filed · 2025 · Georgetown LDT</div>
+  </div>
+
+  <div class="journal-content">
+    <div>
+      <div class="journal-meta-line">Project 02 · Survey-Based Research</div>
+      <h1 class="journal-title">Pre-Sleep Cognitive Arousal, Imagination, and <em>Anxiety.</em></h1>
+      <p class="journal-subtitle">Not all pre-sleep thinking is harmless — this study examines how fantasy imagination before bed shapes anxiety, sleep quality, and emotional responses to uncertainty.</p>
+
+      <div class="journal-author-row">
+        <div class="journal-author-block">
+          <span class="aut-key">Author</span>
+          <span class="aut-val">Jingying Chen</span>
+        </div>
+        <div class="journal-author-block">
+          <span class="aut-key">Methodology</span>
+          <span class="aut-val"><em>Survey · ANOVA · Regression</em></span>
+        </div>
+        <div class="journal-author-block">
+          <span class="aut-key">Sample Size</span>
+          <span class="aut-val">N = 134</span>
+        </div>
+        <div class="journal-author-block">
+          <span class="aut-key">Tools</span>
+          <span class="aut-val"><em>SPSS · JASP · Prolific</em></span>
+        </div>
+      </div>
+
+      <div class="keywords-row">
+        <span class="keyword primary">★ Keywords</span>
+        <span class="keyword">pre-sleep cognition</span>
+        <span class="keyword">GAD-7 anxiety</span>
+        <span class="keyword">imagination</span>
+        <span class="keyword">sleep latency</span>
+        <span class="keyword">phone use</span>
+      </div>
+    </div>
+
+    <div class="abstract-box">
+      <div class="abstract-label">— Abstract</div>
+      <p class="abstract-text">A quantitative survey study examining how pre-sleep imagination relates to anxiety and sleep health. Using GAD-7 anxiety scores and one-way ANOVA across 134 participants, results suggest that not all pre-sleep cognition is harmless — fantasy frequency operates on a threshold, and phone use compounds with imagination to delay sleep onset more than either alone.</p>
+
+      <div class="abstract-stats">
+        <div class="abs-stat">
+          <span class="num">134</span>
+          <span class="lab">Participants</span>
+        </div>
+        <div class="abs-stat">
+          <span class="num">3</span>
+          <span class="lab">Research Q's</span>
+        </div>
+        <div class="abs-stat">
+          <span class="num">.001</span>
+          <span class="lab">p-value</span>
+        </div>
+        <div class="abs-stat">
+          <span class="num">.138</span>
+          <span class="lab">η² effect</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BACKGROUND / OPENING QUESTION ═══ -->
+<section class="bg-section">
+  <div class="bg-inner">
+    <div class="reveal">
+      <div class="section-num">§ 01</div>
+      <div class="section-label">Background</div>
+      <h2 class="bg-question">Do you fantasize <em>before falling asleep?</em></h2>
+      <p class="bg-q-meta">— The research question</p>
+    </div>
+
+    <div class="bg-body reveal">
+      <p>This study investigated whether pre-sleep imagination — from daydreaming to "what if" scenarios — is actually linked to anxiety, and how age and bedtime habits shape the experience. The goal was to move past intuition. Most of us have heard that screens disrupt sleep, but what about <strong>thinking itself?</strong> What kinds of pre-sleep mental activity are protective, and which ones are quietly harmful?</p>
+
+      <p>Using survey data from 134 participants recruited via Prolific and social media, this study applied the GAD-7 anxiety scale and one-way ANOVA analyses across three research questions. The dataset captured self-reported imagination frequency, type, and duration; sleep latency and quality; phone use and reading habits before bed; and emotional response to a sudden weather change — used as a behavioral proxy for psychological flexibility.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METHODS ═══ -->
+<section class="methods-section">
+  <div class="methods-inner">
+    <div class="methods-header">
+      <div class="reveal">
+        <div class="section-num" style="color: rgba(245,240,229,0.5);">§ 02</div>
+        <div class="section-label">Research Design</div>
+        <h2 class="methods-title">Methods at <em>a glance.</em></h2>
+      </div>
+      <p class="methods-tagline reveal">A standardized anxiety scale, three research questions, and analyses run across imagination type, frequency, and behavioral context.</p>
+    </div>
+
+    <!-- Big stats -->
+    <div class="stats-banner reveal">
+      <div class="stat-bar">
+        <div class="lab">Sample</div>
+        <div class="num">N = 134</div>
+        <div class="desc">Recruited via Prolific &amp; social media</div>
+      </div>
+      <div class="stat-bar">
+        <div class="lab">Anxiety Scale</div>
+        <div class="num small">GAD-7</div>
+        <div class="desc">Generalized Anxiety Disorder scale</div>
+      </div>
+      <div class="stat-bar">
+        <div class="lab">Primary Test</div>
+        <div class="num small">One-Way ANOVA</div>
+        <div class="desc">With post-hoc and regression follow-ups</div>
+      </div>
+      <div class="stat-bar">
+        <div class="lab">Software</div>
+        <div class="num small">SPSS · JASP</div>
+        <div class="desc">Quantitative analysis pipeline</div>
+      </div>
+    </div>
+
+    <div class="methods-grid">
+      <div class="method-block reveal">
+        <h4>★ Pre-Sleep Behaviors</h4>
+        <ul>
+          <li>Phone use frequency &amp; duration</li>
+          <li>Reading before bed</li>
+          <li><strong>Mind-blanking</strong> ("thinking of nothing")</li>
+          <li>Imagination engagement</li>
+        </ul>
+      </div>
+
+      <div class="method-block reveal">
+        <h4>★ Imagination Variables</h4>
+        <ul>
+          <li>Frequency (daily → rarely)</li>
+          <li>Duration (in minutes)</li>
+          <li><strong>Type</strong>: fantasy vs. realistic</li>
+          <li>Emotional valence</li>
+        </ul>
+      </div>
+
+      <div class="method-block reveal">
+        <h4>★ Outcome Measures</h4>
+        <ul>
+          <li>Sleep latency (time to fall asleep)</li>
+          <li>Subjective sleep quality</li>
+          <li><strong>GAD-7</strong> anxiety score</li>
+          <li>Emotional response proxy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY FINDINGS ═══ -->
+<section class="findings-section">
+  <div class="findings-inner">
+    <div class="findings-header">
+      <div class="reveal">
+        <div class="section-num">§ 03</div>
+        <div class="section-label">Key Findings</div>
+        <h2 class="findings-title">Three things <em>I learned.</em></h2>
+      </div>
+      <p class="findings-tagline reveal">Not all pre-sleep thinking is created equal — frequency, behavior, and timing each shape outcomes differently.</p>
+    </div>
+
+    <div class="finding-row reveal">
+      <div class="f-num">01</div>
+      <div>
+        <h3 class="f-headline">Fantasy &amp; anxiety: it's about <em>threshold</em>, not degree.</h3>
+        <p class="f-meta">— Finding 01 · Frequency Effect</p>
+      </div>
+      <div class="f-body">
+        <p>Only participants who fantasized <strong>every night</strong> showed significantly elevated anxiety scores. The mean for nightly fantasizers reached <strong>M = 10.93</strong>, compared to <strong>M = 4.71</strong> for those who rarely did. The three lower-frequency groups did not significantly differ from each other.</p>
+        <p>This suggests anxiety is not a linear function of imagination — it kicks in at a threshold of habitual engagement.</p>
+        <span class="f-stat-chip">F(3, 108) = 5.78  ·  p = .001  ·  η² = .138</span>
+      </div>
+    </div>
+
+    <div class="finding-row reveal">
+      <div class="f-num">02</div>
+      <div>
+        <h3 class="f-headline">Phone use + imagination: <em>compounding</em> effects on sleep onset.</h3>
+        <p class="f-meta">— Finding 02 · Interaction Effect</p>
+      </div>
+      <div class="f-body">
+        <p>Phone use before bed alone delayed sleep onset. Imagination alone also delayed it. But participants who did <strong>both</strong> experienced a delay <strong>greater than either factor individually</strong> — the combination was worse than the sum of its parts.</p>
+        <p>This points to a behavioral interaction: screens prime a particular kind of mental activity, and that pairing extends sleep latency further than either intervention would predict on its own.</p>
+        <span class="f-stat-chip">Behavior × Behavior interaction</span>
+      </div>
+    </div>
+
+    <div class="finding-row reveal">
+      <div class="f-num">03</div>
+      <div>
+        <h3 class="f-headline">Poor sleep predicts <em>longer</em> imagination.</h3>
+        <p class="f-meta">— Finding 03 · Bidirectional Loop</p>
+      </div>
+      <div class="f-body">
+        <p>Participants reporting poor sleep quality engaged in <strong>longer pre-sleep imagination</strong> compared to those reporting good sleep quality. This direction matters: imagination may not just disrupt sleep — poor sleep may also drive more imagination the next night.</p>
+        <p>The pattern suggests a potential bidirectional loop, where each side reinforces the other across consecutive nights.</p>
+        <span class="f-stat-chip">Bidirectional relationship · Multi-night pattern</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MEANING / IMPLICATIONS ═══ -->
+<section class="meaning-section">
+  <div class="meaning-inner">
+    <div class="reveal">
+      <div class="section-num" style="color: rgba(245,240,229,0.5);">§ 04</div>
+      <div class="section-label">Implications</div>
+      <h2 class="meaning-title">Pre-sleep cognition <em>is not neutral.</em></h2>
+    </div>
+
+    <div class="meaning-body reveal">
+      <p>The findings suggest that the type and frequency of mental activity before bed shapes both anxiety levels and emotional resilience. <strong>"Thinking of nothing"</strong> before sleep was associated with faster sleep onset and greater adaptability, while fantasy immersion and phone use showed the opposite pattern.</p>
+      <p>This research adds to the growing body of evidence that mental health interventions should consider not just <strong>what</strong> people worry about, but <strong>how and when</strong> they engage their imagination.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REFLECTION ═══ -->
+<section class="reflection-section">
+  <div class="reflection-inner">
+    <div class="reveal">
+      <div class="section-num">§ 05</div>
+      <div class="section-label">Reflection</div>
+      <h2 class="reflection-title">What I learned <em>doing this.</em></h2>
+      <p class="reflection-tag">— Lab notebook entry · Post-submission</p>
+    </div>
+
+    <div class="reflection-body reveal">
+      <p>This study gave me hands-on experience designing and executing a quantitative survey from scratch — writing items, recruiting participants through Prolific, and running ANOVAs in JASP. The process taught me how much decisions made early in survey design constrain what you can later analyze.</p>
+
+      <p>Several limitations stood out in hindsight: the sample was relatively small and skewed toward younger adults, and I didn't control for existing mental health diagnoses, which likely influenced anxiety scores. Some questions were also too broad — <strong>"phone use before bed"</strong> could mean very different things from one participant to another.</p>
+
+      <p>Going forward, I'm interested in following up with <strong>longitudinal designs or experience sampling methods</strong> to capture pre-sleep cognition in real time, rather than relying on retrospective self-report. I'd also want to distinguish between adaptive and maladaptive fantasy — to better understand when imagination helps versus hurts.</p>
+
+      <p>More broadly, this project taught me that quantitative research is as much about <strong>asking the right question as it is about running the right test</strong>. The cleanest analysis can't fix a poorly framed survey item.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NAV ═══ -->
+<section class="proj-nav-section">
+  <a href="project-game-design.html" class="proj-nav-link">
+    <span class="nav-link-label">← Previous Project</span>
+    <span class="nav-link-title">Under the University</span>
+  </a>
+  <a href="project-education-policy.html" class="proj-nav-link next">
+    <span class="nav-link-label">Next Project</span>
+    <span class="nav-link-title">Education Policy Proposal →</span>
+  </a>
+</section>
+
+<footer>
+  <span>© 2026 Jingying Chen · Made with care</span>
+  <span><a href="mailto:JC3597@georgetown.edu">JC3597@georgetown.edu</a></span>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing() { rx += (mx-rx)*.13; ry += (my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='18px'; cursor.style.height='18px'; ring.style.width='52px'; ring.style.height='52px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='34px'; ring.style.height='34px'; });
+});
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
