@@ -141,13 +141,13 @@ nav {
   font-size: .7rem;
   letter-spacing: .25em;
   text-transform: uppercase;
-  color: var(--orange-deep);
+  color: #8B2E08;
   display: inline-flex; align-items: center; gap: .7rem;
   margin-bottom: 1rem;
 }
 .section-label::before, .section-label::after {
   content: ''; width: 30px; height: 1px;
-  background: var(--orange-deep);
+  background: #8B2E08;
 }
 
 .section-title {
