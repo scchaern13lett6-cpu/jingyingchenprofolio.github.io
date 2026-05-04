@@ -218,6 +218,76 @@ nav { background: rgba(250,247,238,0.92) !important; border-bottom: 1px solid va
 }
 .problem-side.contrast h3 em { color: var(--green-deep); font-style: italic; }
 
+/* ════ INFLUENCE IN ACTION - image strip ════ */
+.in-action-section {
+  background: var(--paper);
+  padding: 4rem 5rem 5rem;
+  position: relative; overflow: hidden;
+}
+.in-action-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+
+.in-action-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.in-action-header h3 {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  color: var(--green-deep);
+  font-weight: 700;
+  line-height: 1.3;
+}
+.in-action-header h3 em { color: var(--ink); font-style: italic; }
+.in-action-header .lbl {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--green-deep); font-weight: 700;
+  margin-bottom: .5rem;
+  padding: .3rem .9rem;
+  background: var(--green-pale);
+  border: 1px solid var(--green-deep);
+}
+
+.in-action-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.1fr;
+  grid-template-rows: 240px 240px;
+  gap: 1.2rem;
+}
+
+.in-action-item {
+  position: relative; overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(26,32,24,0.18);
+  transition: transform .35s;
+}
+.in-action-item:hover { transform: translateY(-4px); }
+.in-action-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+  filter: contrast(1.05) saturate(0.92);
+  transition: transform .5s;
+}
+.in-action-item:hover img { transform: scale(1.08); }
+
+.in-action-item .ia-cap {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(0deg, rgba(26,32,24,0.85), transparent);
+  padding: 1.5rem 1.2rem .9rem;
+  color: var(--paper);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: .15em;
+  text-transform: uppercase; font-weight: 600;
+}
+.in-action-item .ia-cap strong { color: var(--green); display: block; font-size: .8rem; margin-bottom: .2rem; }
+
+.in-action-item.a1 { grid-column: 1; grid-row: 1 / 3; }
+.in-action-item.a2 { grid-column: 2; grid-row: 1; }
+.in-action-item.a3 { grid-column: 3; grid-row: 1; }
+.in-action-item.a4 { grid-column: 2 / 4; grid-row: 2; }
+
 /* ════ FORMULA ════ */
 .formula-section {
   background: var(--ink); color: var(--paper);
@@ -389,9 +459,18 @@ nav { background: rgba(250,247,238,0.92) !important; border-bottom: 1px solid va
 .sustain-icon {
   width: 100px; height: 100px;
   background: var(--paper); border: 2px dashed var(--gray-deep);
-  border-radius: 50%; display: flex;
-  align-items: center; justify-content: center;
-  font-size: 2.8rem;
+  border-radius: 50%; position: relative;
+}
+.sustain-icon::before {
+  content: ''; position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--green-deep);
+}
+.sustain-icon::after {
+  content: '★'; position: absolute;
+  inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; color: var(--green-deep);
 }
 .sustain-text h3 {
   font-family: 'Crimson Pro', serif; font-size: 1.8rem;
@@ -503,9 +582,14 @@ footer a:hover { color: var(--green) !important; }
 
 @media (max-width: 1100px) {
   .back-bar { left: 2rem; top: 4.5rem; }
-  .m-hero, .m-band, .problem-section, .formula-section, .schools-section, .sustain-section, .model-section, .ethics-section, .proj-nav-section { padding: 4rem 2rem; }
+  .m-hero, .m-band, .problem-section, .in-action-section, .formula-section, .schools-section, .sustain-section, .model-section, .ethics-section, .proj-nav-section { padding: 4rem 2rem; }
   .problem-inner, .schools-header, .ethics-inner, .m-bottom-row { grid-template-columns: 1fr; gap: 2.5rem; }
   .problem-grid, .model-cards { grid-template-columns: 1fr; }
+  .in-action-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+  .in-action-item.a1 { grid-column: 1 / 3; grid-row: 1; }
+  .in-action-item.a2 { grid-column: 1; grid-row: 2; }
+  .in-action-item.a3 { grid-column: 2; grid-row: 2; }
+  .in-action-item.a4 { grid-column: 1 / 3; grid-row: 3; }
   .formula-display { gap: .4rem; }
   .f-term { font-size: 1rem; padding: .7rem .9rem; }
   .f-term.influence { font-size: 1.2rem; }
@@ -579,10 +663,24 @@ footer a:hover { color: var(--green) !important; }
   </div>
 </section>
 
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:80px;">
+  <rect width="1440" height="80" fill="#FAF7EE"/>
+  <polygon points="0,80 1440,0 1440,80" fill="#1A2018"/>
+</svg>
+</div>
+
 <!-- ═══ MANIFESTO QUOTE ═══ -->
 <section class="m-band">
   <p class="m-quote">Whether you realize it or not, everyone is silently shaping the lives of others. <em>True influence isn't measured by numbers or followers</em> — it's the power to transform hearts and minds.</p>
 </section>
+
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:80px;">
+  <rect width="1440" height="80" fill="#1A2018"/>
+  <path d="M0,40 L60,40 L60,30 L120,30 L120,50 L180,50 L180,35 L240,35 L240,45 L300,45 L300,30 L360,30 L360,50 L420,50 L420,40 L480,40 L480,30 L540,30 L540,50 L600,50 L600,35 L660,35 L660,45 L720,45 L720,30 L780,30 L780,50 L840,50 L840,40 L900,40 L900,30 L960,30 L960,50 L1020,50 L1020,35 L1080,35 L1080,45 L1140,45 L1140,30 L1200,30 L1200,50 L1260,50 L1260,40 L1320,40 L1320,30 L1380,30 L1380,50 L1440,50 L1440,80 L0,80 Z" fill="#FAF7EE"/>
+</svg>
+</div>
 
 <!-- ═══ PROBLEM ═══ -->
 <section class="problem-section">
@@ -610,6 +708,43 @@ footer a:hover { color: var(--green) !important; }
     </div>
   </div>
 </section>
+
+<!-- ═══ INFLUENCE IN ACTION ═══ -->
+<section class="in-action-section">
+  <div class="in-action-inner">
+    <div class="in-action-header reveal">
+      <span class="lbl">★ Influence In Action</span>
+      <h3>Where influence <em>actually lives.</em></h3>
+    </div>
+
+    <div class="in-action-grid reveal">
+      <div class="in-action-item a1">
+        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80" alt="Person speaking at a podium - public discourse">
+        <div class="ia-cap"><strong>The Stage</strong>Public discourse · Civic influence</div>
+      </div>
+      <div class="in-action-item a2">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80" alt="Team collaborating on a project">
+        <div class="ia-cap"><strong>The Studio</strong>Creative work · Cultural influence</div>
+      </div>
+      <div class="in-action-item a3">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="People in a workshop discussing a presentation">
+        <div class="ia-cap"><strong>The Brief</strong>Strategy · Persuasion</div>
+      </div>
+      <div class="in-action-item a4">
+        <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1200&q=80" alt="Conference audience engaged in a talk">
+        <div class="ia-cap"><strong>The Audience</strong>Reach · Channel · Distribution</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:100px;">
+  <rect width="1440" height="100" fill="#FAF7EE"/>
+  <path d="M0,55 C40,52 80,58 120,53 C160,48 200,57 240,52 C280,47 320,58 360,53 C400,48 440,57 480,52 C520,47 560,58 600,53 C640,48 680,57 720,52 C760,47 800,58 840,53 C880,48 920,57 960,52 C1000,47 1040,58 1080,53 C1120,48 1160,57 1200,52 C1240,47 1280,58 1320,53 C1360,48 1400,57 1440,52 L1440,100 L0,100 Z" fill="#1A2018"/>
+  <path d="M0,52 C40,49 80,55 120,50 C160,45 200,54 240,49 C280,44 320,55 360,50 C400,45 440,54 480,49 C520,44 560,55 600,50 C640,45 680,54 720,49 C760,44 800,55 840,50 C880,45 920,54 960,49 C1000,44 1040,55 1080,50 C1120,45 1160,54 1200,49 C1240,44 1280,55 1320,50 C1360,45 1400,54 1440,49" stroke="#9BC53D" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+</svg>
+</div>
 
 <!-- ═══ FORMULA ═══ -->
 <section class="formula-section">
@@ -646,6 +781,14 @@ footer a:hover { color: var(--green) !important; }
   </div>
 </section>
 
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:110px;">
+  <rect width="1440" height="110" fill="#1A2018"/>
+  <path d="M0,40 C120,15 240,60 360,40 C480,20 600,60 720,40 C840,20 960,60 1080,40 C1200,20 1320,60 1440,40 L1440,75 C1320,55 1200,90 1080,75 C960,60 840,90 720,75 C600,60 480,90 360,75 C240,60 120,90 0,75 Z" fill="#9BC53D" opacity="0.6"/>
+  <path d="M0,65 C120,40 240,85 360,65 C480,45 600,85 720,65 C840,45 960,85 1080,65 C1200,45 1320,85 1440,65 L1440,110 L0,110 Z" fill="#FAF7EE"/>
+</svg>
+</div>
+
 <!-- ═══ FOUR SCHOOLS ═══ -->
 <section class="schools-section">
   <div class="schools-inner">
@@ -660,28 +803,24 @@ footer a:hover { color: var(--green) !important; }
 
     <div class="schools-grid reveal">
       <div class="school-card s1">
-        <span class="school-emoji">🎨</span>
         <h3>School of <em>Creative &amp; Cultural Influence</em></h3>
         <p>Storytelling, design, brand-building, and narrative as instruments of cultural change. Where creators learn to move people through what they make.</p>
         <span class="school-tag">★ Create</span>
         <div class="bg-num">01</div>
       </div>
       <div class="school-card s2">
-        <span class="school-emoji">🧠</span>
         <h3>School of <em>Persuasion &amp; Behavior</em></h3>
         <p>Psychology of decision-making, applied behavioral science, and ethical persuasion. Understanding why people change — and don't.</p>
         <span class="school-tag">★ Understand</span>
         <div class="bg-num">02</div>
       </div>
       <div class="school-card s3">
-        <span class="school-emoji">📡</span>
         <h3>School of <em>Media &amp; Channels</em></h3>
         <p>How ideas travel through systems. Platforms, audiences, distribution — building reach that actually lands.</p>
         <span class="school-tag">★ Distribute</span>
         <div class="bg-num">03</div>
       </div>
       <div class="school-card s4">
-        <span class="school-emoji">⚖️</span>
         <h3>School of <em>Civic &amp; Ethical Influence</em></h3>
         <p>Advocacy, mobilization, public discourse, and the ethics of moving large groups of people. Power, with responsibility built in.</p>
         <span class="school-tag">★ Govern</span>
@@ -691,16 +830,30 @@ footer a:hover { color: var(--green) !important; }
   </div>
 </section>
 
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:100px;">
+  <rect width="1440" height="100" fill="#FAF7EE"/>
+  <path d="M0,50 C120,20 240,80 360,50 C480,20 600,80 720,50 C840,20 960,80 1080,50 C1200,20 1320,80 1440,50 L1440,100 L0,100 Z" fill="#A8D5E5"/>
+</svg>
+</div>
+
 <!-- ═══ SUSTAINABILITY BAND ═══ -->
 <section class="sustain-section">
   <div class="sustain-inner reveal">
-    <div class="sustain-icon">🌱</div>
+    <div class="sustain-icon"></div>
     <div class="sustain-text">
       <h3>Our Sustainability <em>Commitment.</em></h3>
       <p>Sustainability is not an afterthought. <strong>Every decision we make</strong> — from campus design to brand partnerships — is held to an environmental standard. Influence with integrity means accountability to the systems we operate within.</p>
     </div>
   </div>
 </section>
+
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:100px;">
+  <rect width="1440" height="100" fill="#A8D5E5"/>
+  <path d="M0,50 C120,20 240,80 360,50 C480,20 600,80 720,50 C840,20 960,80 1080,50 C1200,20 1320,80 1440,50 L1440,100 L0,100 Z" fill="#FAF7EE"/>
+</svg>
+</div>
 
 <!-- ═══ LEARNING MODEL ═══ -->
 <section class="model-section">
@@ -726,6 +879,14 @@ footer a:hover { color: var(--green) !important; }
     </div>
   </div>
 </section>
+
+<div style="margin:-2px 0; line-height:0; position:relative; z-index:5;">
+<svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:100px;">
+  <rect width="1440" height="100" fill="#FAF7EE"/>
+  <path d="M0,55 C40,52 80,58 120,53 C160,48 200,57 240,52 C280,47 320,58 360,53 C400,48 440,57 480,52 C520,47 560,58 600,53 C640,48 680,57 720,52 C760,47 800,58 840,53 C880,48 920,57 960,52 C1000,47 1040,58 1080,53 C1120,48 1160,57 1200,52 C1240,47 1280,58 1320,53 C1360,48 1400,57 1440,52 L1440,100 L0,100 Z" fill="#1A2018"/>
+  <path d="M0,52 C40,49 80,55 120,50 C160,45 200,54 240,49 C280,44 320,55 360,50 C400,45 440,54 480,49 C520,44 560,55 600,50 C640,45 680,54 720,49 C760,44 800,55 840,50 C880,45 920,54 960,49 C1000,44 1040,55 1080,50 C1120,45 1160,54 1200,49 C1240,44 1280,55 1320,50 C1360,45 1400,54 1440,49" stroke="#9BC53D" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+</svg>
+</div>
 
 <!-- ═══ ETHICS REFLECTION ═══ -->
 <section class="ethics-section">
